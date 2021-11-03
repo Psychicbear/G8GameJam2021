@@ -16,7 +16,7 @@ let walkframes = [
 ]
 let enemies, expPoints;
 function preload(){
-    redXP = loadImage('GameJam G9.png');
+    redXP = loadImage('redXP.png');
     loadSprites = loadImage('doux.png')
     walkAnimation = animationFromSpriteSheet(loadSprites, walkframes)
     runAnimation = animationFromSpriteSheet(loadSprites, runframes)
