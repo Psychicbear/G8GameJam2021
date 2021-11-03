@@ -2,7 +2,7 @@
 
 let enemies, expPoints;
 function preload(){
-    redXP = loadImage('GameJam G9.png');
+    redXP = loadImage('redXP.png');
 
 }
 
@@ -12,8 +12,8 @@ function setup(){
     enemies = new Group();
     expPoints = new Group();
 
-    enemy = new Enemy();
-    enemy.setup('red', 200, 200, 30, 30);
+    enemy = new Enemy('red', 200, 200, 30, 30);
+
     
 
 
