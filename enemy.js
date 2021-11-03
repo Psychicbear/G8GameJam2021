@@ -1,10 +1,6 @@
 
 class Enemy {
-    constructor(){
-        this.sprite;
-    }
-
-    setup(colour, x, y, w, h, img, type = 'melee', hp = 1, attackDmg = 1, XP = 5, speed = 5){
+    constructor(colour, x, y, w, h, img, type = 'melee', hp = 1, attackDmg = 1, XP = 5, speed = 5){
         this.sprite = createSprite(x, y, w, h);
         enemies.add(this.sprite);
         this.type = type;
@@ -40,12 +36,10 @@ class Enemy {
     dropXP(){
         //creates instance of xp class
         for(let i = 0; i < this.XPAmt; i++){
-            let f = new XP(this.sprite.position.x, this.sprite.position.y, this.colour, redXP, 10, 10);
+            let f = new XP(this.sprite.position.x, this.sprite.position.y, this.colour, redXP);
             f.sprite.addToGroup(expPoints);
-    
 
         }
-
 
     }
 
@@ -59,8 +53,7 @@ class Enemy {
   
 
     }
-    pickup(){
-        console.log(this)
+    pickup(){ //should add to player class instead, rename pickupXP
         this.remove();
      
         //add to player colour
@@ -69,13 +62,11 @@ class Enemy {
 }
 
 class XP {
-    constructor(x, y, colour, img, w, h){ //currently have to input img. change to a function that does it automatically?
+    constructor(x, y, colour, img){ //currently have to input img. change to a function that does it automatically?
         this.sprite = createSprite(x + random(-20, 20), y + random(-20, 20)); //x and y are the locations of the enemy
-        img.resize(w, h);
+        img.resize(random(5, 15), 0); //have different images are different sizes later, plus colours
         this.sprite.addImage(colour, img);
         this.sprite.colour = colour;
     }
-
-    
 
 }

@@ -26,17 +26,13 @@ function setup(){
     createCanvas(1280, 720)
     enemies = new Group();
     expPoints = new Group();
-    enemy = new Enemy();
-    enemy.setup('red', 200, 200, 30, 30);
+    enemy = new Enemy('red', 200, 200, 30, 30);
     dino = createSprite(320,320, 24, 24)
     dino.addAnimation('run', runAnimation)
     dino.addAnimation('walk', walkAnimation)
     dino.setCollider('rectangle',0,0,24,24)
     dino.debug = true
     dino.scale = 4
-    
-
-
 }
 
 function draw(){
