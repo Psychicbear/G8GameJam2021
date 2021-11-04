@@ -16,7 +16,13 @@ let walkframes = [
 ]
 let enemies, expPoints;
 function preload(){
+    //temp images for testing
     redXP = loadImage('redXP.png');
+    fullHeart = loadImage('heartImages/fullHeart.png');
+    halfHeart = loadImage('heartImages/halfHeart.png');
+    threeQuartHeart = loadImage('heartImages/34Heart.png');
+    oneQuartHeart = loadImage('heartImages/14Heart.png');
+
     loadSprites = loadImage('doux.png')
     walkAnimation = animationFromSpriteSheet(loadSprites, walkframes)
     runAnimation = animationFromSpriteSheet(loadSprites, runframes)
@@ -33,11 +39,17 @@ function setup(){
     dino.setCollider('rectangle',0,0,24,24)
     dino.debug = true
     dino.scale = 4
+
 }
 
 function draw(){
     background(0);
     enemy.collisionCheck();
+    
+    playerHearts = new Hearts();
+    playerHearts.checkHP();
+    playerHearts.drawHearts();
+
 
     animationHandling()
     drawSprites();
