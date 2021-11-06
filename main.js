@@ -1,7 +1,13 @@
 //this is the one you'll write your code in make sure to change the script tag in index.html to use main.js instead of test.js
 let enemies, expPoints;
 function preload(){
+    //temp images for testing
     redXP = loadImage('redXP.png');
+    fullHeart = loadImage('heartImages/fullHeart.png');
+    halfHeart = loadImage('heartImages/halfHeart.png');
+    threeQuartHeart = loadImage('heartImages/34Heart.png');
+    oneQuartHeart = loadImage('heartImages/14Heart.png');
+
     loadSprites = loadImage('doux.png')
     animJSON = loadJSON('playerAnimations.json', (data) =>{
         walkAnimation = animationFromSpriteSheet(loadSprites, animJSON['walk'])
@@ -42,6 +48,11 @@ function draw(){
     })
     player.keyInputs()
     enemy.collisionCheck();
+    
+    playerHearts = new Hearts();
+    playerHearts.checkHP();
+    playerHearts.drawHearts();
+
 
     //animationHandling()
     drawSprites();
