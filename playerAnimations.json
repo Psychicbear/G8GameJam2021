@@ -1,0 +1,16 @@
+{
+    "run":[
+        {"name":"run1", "frame":{"x":408, "y": 0, "width": 24, "height": 24}},
+        {"name":"run1", "frame":{"x":432, "y": 0, "width": 24, "height": 24}},
+        {"name":"run1", "frame":{"x":456, "y": 0, "width": 24, "height": 24}},
+        {"name":"run1", "frame":{"x":480, "y": 0, "width": 24, "height": 24}},
+        {"name":"run1", "frame":{"x":504, "y": 0, "width": 24, "height": 24}}
+    ],
+    "walk": [
+        {"name":"walk1", "frame":{"x":72,  "y": 0, "width": 24, "height": 24}},
+        {"name":"walk2", "frame":{"x":96,  "y": 0, "width": 24, "height": 24}},
+        {"name":"walk3", "frame":{"x":120, "y": 0, "width": 24, "height": 24}},
+        {"name":"walk4", "frame":{"x":144, "y": 0, "width": 24, "height": 24}},
+        {"name":"walk5", "frame":{"x":168, "y": 0, "width": 24, "height": 24}}
+    ]
+}
