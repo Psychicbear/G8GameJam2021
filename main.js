@@ -38,10 +38,10 @@ function setup(){
 function draw(){
     frameRate(60)
     framerate = getFrameRate()
-    console.log(framerate)
+    //console.log(framerate)
     color(0,255,100)
     textSize(20)
-    text('FPS:' + framerate, 50,50)
+    //text('FPS:' + framerate, 50,50)
     background(0);
     player.s.collide(floorSprite, ()=>{
         player.airborne = 0    
@@ -50,7 +50,7 @@ function draw(){
     enemy.collisionCheck();
     
     playerHearts = new Hearts();
-    playerHearts.checkHP();
+    playerHearts.checkHP(player.curHP);
     playerHearts.drawHearts();
 
 
@@ -59,28 +59,10 @@ function draw(){
 }
 
 
-function animationHandling(){
-    dino.mouseUpdate()
-    if(dino.mouseIsOver){
-       dino.changeAnimation('run')
-       console.log('Ruuuuuuun!!!') 
-    } else {
-        dino.changeAnimation('walk')
-    }
-}
-
 //Takes a spritesheet image, and an array of frames, and produces as animation which can be attached to sprites
 function animationFromSpriteSheet(img, frames){
     console.log(frames)
     spriteSheet = loadSpriteSheet(img, frames)
     animation = loadAnimation(spriteSheet)
     return animation
-}
-
-function jumptest(){
-    if(keyIsDown(32)){
-        if(keyWentUp(32)){
-            console.log("the key was released")
-        }
-    }
 }

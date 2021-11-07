@@ -4,8 +4,7 @@ class Hearts {
         this.spacing = 60; //spacing between heart images' x locations
         this.yVal = 10; //spacing of hearts from top of screen
         this.xSp = 10; //spacing of hearts from left side of screen
-
-        this.curVal = 12; //needs to be changed to player.curHP. Can be changed manually for testing
+        this.curVal = 0; //needs to be changed to player.curHP. Can be changed manually for testing
         this.heartFull = 0;
         this.heartPart = 0;
     }
@@ -37,14 +36,16 @@ class Hearts {
         } 
     }
 
-    checkHP(){ //checks whether hearts needs to be updated. Run from draw for constant checking
-        //if(this.curVal != player.curHP){ 
-            //this.curVal = player.curHP;
+    checkHP(playerHP){ //checks whether hearts needs to be updated. Run from draw for constant checking
+        if(this.curVal != playerHP){ 
+            this.curVal = playerHP;
             this.calculateHearts();
-        //}
+        }
     } //end checkHP()
 
     calculateHearts(){ //updates heartPart and heartFull. Only called by checkHP()
+        this.heartFull = 0;
+        this.heartPart = 0;
         for(let i = 0; i < this.curVal; i++){
             if((i + 1) % 4 == 0){
                 this.heartFull++;
