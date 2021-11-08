@@ -14,15 +14,24 @@ class Player{
     }
 
     keyInputs(){
+        // camera.position.y = player.s.position.y - height *0.35
         //Move left or right
         if(keyIsDown(RIGHT_ARROW) && keyIsDown(LEFT_ARROW)){
             this.s.addSpeed(0,0)
-        } else if(keyIsDown(RIGHT_ARROW)){
+        } 
+        
+        else if(keyIsDown(RIGHT_ARROW)){
             console.log('Move Right')
             this.s.addSpeed(10,0)
-        } else if(keyIsDown(LEFT_ARROW)){
+            camera.position.x = player.s.position.x
+        } 
+        
+        else if(keyIsDown(LEFT_ARROW)){
             this.s.addSpeed(10,180)
-        } else {
+            camera.position.x = player.s.position.x
+        } 
+        
+        else {
             this.s.velocity.lerp(createVector(0 , this.s.velocity.y), 0.1)
         }
 
@@ -48,4 +57,8 @@ class Player{
         this.airborne++
     }
 
+}
+
+function onGround(){
+    jump = false;
 }
