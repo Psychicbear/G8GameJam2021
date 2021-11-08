@@ -1,5 +1,6 @@
 //this is the one you'll write your code in make sure to change the script tag in index.html to use main.js instead of test.js
 let enemies, expPoints;
+let gameState = 0
 function preload(){
     //temp images for testing
     redXP = loadImage('redXP.png');
@@ -18,6 +19,8 @@ function preload(){
 
 function setup(){
     createCanvas(1280, 720)
+    textAlign(CENTER)
+    rectMode(CENTER)
     frameRate(60)
     enemies = new Group();
     expPoints = new Group();
@@ -29,33 +32,35 @@ function setup(){
     player.s.debug = true
     floorSprite = createSprite(640,700,1280,20)
     enemy = new Enemy('red', 200, 200, 30, 30);
-    //dino = createSprite(320,320, 24, 24)
-    //dino.setCollider('rectangle',0,0,24,24)
-    //dino.debug = true
-    //dino.scale = 4
+    button = new UI_Button(1280/2, 720/2, 100, 100, {'r': 255, 'g': 100, 'b': 0}, 'Play', ()=>{console.log('Button is pressed!!!'); gameState = 1})
+    fps = new FrameRateCounter()
 }
 
 function draw(){
-    frameRate(60)
-    framerate = getFrameRate()
-    //console.log(framerate)
-    color(0,255,100)
-    textSize(20)
-    //text('FPS:' + framerate, 50,50)
     background(0);
-    player.s.collide(floorSprite, ()=>{
-        player.airborne = 0    
-    })
-    player.keyInputs()
-    enemy.collisionCheck();
-    
-    playerHearts = new Hearts();
-    playerHearts.checkHP(player.curHP);
-    playerHearts.drawHearts();
+    fps.draw()
+    switch(gameState){
+        case 0:
+            text()
+            button.draw();
+            break;
+        case 1:
+            player.s.collide(floorSprite, ()=>{
+                player.airborne = 0    
+            })
+            player.keyInputs()
+            enemy.collisionCheck();
+            playerHearts = new Hearts();
+            playerHearts.checkHP(player.curHP);
+            playerHearts.drawHearts();
+            drawSprites();
+            break;
+        case 2:
+            //Enter Debug menu draw here 
+            break;
+        
 
-
-    //animationHandling()
-    drawSprites();
+    }
 }
 
 
