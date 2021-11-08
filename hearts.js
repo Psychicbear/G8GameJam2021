@@ -12,7 +12,7 @@ class Hearts {
     drawHearts(){ //draws hearts on screen. run in draw for constant redrawing
         if(this.heartFull > 0){
             for(let i = 0; i < this.heartFull; i++){
-                image(fullHeart, this.spacing*i + this.xSp, this.yVal, this.size, this.size);
+                image(fullHeart, (camera.position.x - 360) + this.spacing*i + this.xSp, this.yVal, this.size, this.size);
                 if(this.heartPart > 0 && i == this.heartFull - 1){ //if there are parts and it is the last loop
                     this.drawParts(i + 1);
                 }
@@ -28,11 +28,11 @@ class Hearts {
 
     drawParts(i = 0){ //i determines which position to draw the part
         if(this.heartPart == 1){
-            image(oneQuartHeart, this.spacing*(i) + this.xSp, this.yVal, this.size, this.size);
+            image(oneQuartHeart, (camera.position.x - 360) + this.spacing*(i) + this.xSp, this.yVal, this.size, this.size);
         } else if(this.heartPart == 2){
-            image(halfHeart, this.spacing*(i) + this.xSp, this.yVal, this.size, this.size);
+            image(halfHeart,(camera.position.x - 360) + this.spacing*(i) + this.xSp, this.yVal, this.size, this.size);
         } else if(this.heartPart == 3){
-            image(threeQuartHeart, this.spacing*(i) + this.xSp, this.yVal, this.size, this.size);
+            image(threeQuartHeart, (camera.position.x - 360) +this.spacing*(i) + this.xSp, this.yVal, this.size, this.size);
         } 
     }
 
