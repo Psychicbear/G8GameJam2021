@@ -29,6 +29,7 @@ class Enemy {
         //if(this.animation.getFrame() == this.animation.getLastFrame() && this.animation.getAnimationLabel() == 'defeat'){
         this.sprite.remove(); //above might not work, since it has to be constantly checked until animation is done, and can't with this current structure
         this.dropXP();
+        //add sprite to
    
         //}
     }
@@ -59,6 +60,11 @@ class Enemy {
         //add to player colour
     }
 
+    loopedFunction(){ //function called in draw that holds all other functions that need to be looped
+        this.collisionCheck();
+        this.move();
+    }
+
 }
 
 class XP {
@@ -70,3 +76,42 @@ class XP {
     }
 
 }
+
+class Flying extends Enemy {
+    constructor(colour, x, y, w, h, img, type, hp = 200, attackDmg, XP, speed){ //add defaults to each different class?
+        super(colour, x, y, w, h, img, type, hp, attackDmg, XP, speed); //have defaults, but defaults can be changed if need to
+    }
+
+    move(){
+        //movement logic. Air tiles?
+    }
+
+    //must rewrite over enemy move() - polymorphism?
+    //have another method that is just all the other methods that need to be called inn draw?
+}
+
+class Range extends Enemy {
+    //must add to enemy move () - inefficient to rewrite, so how to add? Completely new function?
+    //melee move and range movement?
+    
+}
+
+//boss class? Surely we need at least a final boss. making it jump on platforms would be difficult unless  it was coded specifically to the room
+// maybe it should be a flying boss? then the boss class could be a sublass of flying. Can you do sub sublclasses?
+
+
+//does super basically refer to the parent class? used like this.?
+
+/*
+move() {
+    super.move(); //adds movement from parent class
+    //extra movement
+}
+*/
+
+//spawner, pass coordinates to the right subclass
+
+//air blocks to stop enemy moving
+
+//wrapped draw stuff
+//do we have to call movement for all enemies? how do?

@@ -4,7 +4,8 @@ class Hearts {
         this.spacing = 60; //spacing between heart images' x locations
         this.yVal = 10; //spacing of hearts from top of screen
         this.xSp = 10; //spacing of hearts from left side of screen
-        this.curVal = 0; //needs to be changed to player.curHP. Can be changed manually for testing
+        this.curVal = 0;
+        this.checkHP(); //to update curVal
         this.heartFull = 0;
         this.heartPart = 0;
     }

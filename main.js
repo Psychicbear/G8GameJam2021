@@ -29,6 +29,9 @@ function setup(){
     player.s.debug = true
     floorSprite = createSprite(640,700,1280,20)
     enemy = new Enemy('red', 200, 200, 30, 30);
+    flyingen = new Flying('blue', 300, 300, 30, 20, redXP, 'flying', 30);
+    console.log(flyingen);
+    
     //dino = createSprite(320,320, 24, 24)
     //dino.setCollider('rectangle',0,0,24,24)
     //dino.debug = true
@@ -47,7 +50,7 @@ function draw(){
         player.airborne = 0    
     })
     player.keyInputs()
-    enemy.collisionCheck();
+    enemy.loopedFunction(); //contains all methods that need to be looped in draw
     
     playerHearts = new Hearts();
     playerHearts.checkHP(player.curHP);
