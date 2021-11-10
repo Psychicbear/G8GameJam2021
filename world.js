@@ -1,17 +1,10 @@
 
+let gridItem = [];
 let gridSize = 50;
 let gridOffset = gridSize / 2;
 
 
-function drawWorld(){
 
-    // ground = createSprite(width / 2, height - 25, width, 50);
-    // ground.shapeColor = color(166,124,82);
-
-    worldSprite = new worldPlatform();
-    
-    
-} // drawWorld()
 
 
 class worldPlatform {
@@ -21,37 +14,40 @@ class worldPlatform {
 
     setup(x, y, w, h) {
         this.worldSprite = createSprite(x, y, w, h);
-        this.worldSprite.addImage(tex_grass);
+        if(selectedTexture == ''){
+
+            this.worldSprite.addImage(tex_springGrass);
+        }
+        else{
+            this.worldSprite.addImage(selectedTexture);
+        }
+        
     }
 
     draw(){
         let x = snap(mouseX);
         let y = snap(mouseY);
 
-        if (mouseIsPressed) {
-                
-            if (mouseButton === LEFT) {
-                this.setup(x, y, 50, 50);
-                worldTiles.add(this.worldSprite); // Add to Group()
-                editorAddWorldObject(x, y);           
-            }
+        // Draws a square on the grid to indicate where a block will be placed
+        fill(255,255,255, 20);
+        noStroke()
+        rect(x, y, gridSize, gridSize);
 
-            if (mouseButton === RIGHT) {
-                console.log(gridItem)
-            }
-
+        if (mouseWentUp(LEFT)){
+            this.setup(x, y, 50, 50);
+            worldTiles.add(this.worldSprite); // Add to Group()
+            editorAddWorldObject(selectedTexture,x, y); // Adds grid tile placement parameters to an array for later saving
         }
 
-        if(keyIsDown(76)) { // L key
-            LoadMapJSON()
+        if(mouseDown(RIGHT)){
         }
 
-        if(keyIsDown(77)){ // M key
-            editorSaveJSON(x, y);
-        }
+        // L Key
+        if(keyIsDown(76)) { LoadMapJSON() } 
+        // M Key
+        if(keyIsDown(77)) { editorSaveJSON(x, y); } 
 
-    }
-
+    }// draw()
 
 } // class worldPlatform
 
@@ -66,37 +62,16 @@ function snap(op) {
 } // snap()
 
 
-let gridItem = [];
-let iteration = 0;
-
 
 // 2D array selection example
 // gridItem[4][0]  // forth array, firstData
 // gridItem[0][1]  // first array, secondData
-function editorAddWorldObject(x, y) {
+let gridItemIteration = 0;
+function editorAddWorldObject(selectedTexture, x, y) {
 
+    // TODO: store textureName, x, y into an array.
 
-
-    gridItem[iteration++] = [x, y];  // currently just spams locations into the array
-
-    // console.log(gridItem)
-    // // allowAppend = false;
-    // gridItem.forEach((item) => {
-    //     console.log("HELP")
-    //     console.log(x)
-    //     console.log(y)
-    //     console.log(item)
-        
-    //     if(x != item.x && y != item.y){
-    //         // allowAppend = true
-    //         // gridItem[itteration++] = {x, y}; 
-    //         console.log("boop");
-            
-    //     }
-    // });
-
-
-
+    gridItem[gridItemIteration++] = [selectedTexture, x,  y]; 
 
 } // addGridPosition
 
@@ -106,7 +81,7 @@ function editorSaveJSON(){
     // e.g. gridItem[[32, 44], [56, 123]]
 
     let json = {};
-    json.itemType = "spring_grass";
+    json.itemType = JSON.stringify(selectedTexture);
     json.location = gridItem
     saveJSON(json, "things.json");
     
@@ -124,7 +99,7 @@ function LoadMapJSON() {
         worldSprite = createSprite(xpos, ypos, 50, 50);
 
         if(type == "spring_grass") {
-            worldSprite.addImage(tex_grass);
+            worldSprite.addImage(tex_springGrass);
             worldTiles.add(worldSprite); // Add to Group()
         }
 
