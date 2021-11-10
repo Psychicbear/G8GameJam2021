@@ -5,9 +5,40 @@ body {
     font-family:monospace;
 }
 
-#container {
-    /* css that effects the container holding main. */
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
+
+
+    *{
+      font-family: Arial;
+    }
+    
+    html, body {
+      height: 100%;
+    }
+    
+    body {
+      margin: 0 auto;
+      width: 720px!important;
+    
+      /* This centers our sketch horizontally. */
+      justify-content: center;
+    
+      /* This centers our sketch vertically. */
+      align-items: center;
+    }
+    
+    .wrap{
+      margin: 0 auto;
+      width: 800px; 
+      height: 40px;
+    }
+    
+    
+    
+    .wrap a{
+      float: left;
+      height: 10px;
+      font-weight: bold;
+      color: rgb(228, 38, 171);
+      text-decoration: none;
+      padding-right: 20px;
+    }

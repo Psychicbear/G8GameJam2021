@@ -25,9 +25,11 @@ class UI_Button{
 
     mouseIsOver(){
         let bool = false
+        cursor(POINTER)
         if(mouseX > this.pos.x - this.size.w/2 && mouseX < this.pos.x + this.size.w/2){
             if(mouseY > this.pos.y - this.size.h/2 && mouseY < this.pos.y + this.size.h/2){
                 bool = true
+                cursor(HAND)
             }
         }
         return bool
