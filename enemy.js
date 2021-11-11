@@ -60,7 +60,7 @@ class Enemy {
         //add to player colour
     }
 
-    loopedFunction(){ //function called in draw that holds all other functions that need to be looped
+    loopInDraw(){ //function called in draw that holds all other functions that need to be looped
         this.collisionCheck();
         this.move();
     }

@@ -8,6 +8,7 @@ let textures = {
 
 //this is the one you'll write your code in make sure to change the script tag in index.html to use main.js instead of test.js
 let enemies, expPoints;
+let gameState = 0
 function preload(){
     loadedMap = loadJSON("things.json"); // Temporary : this is where the loaded map is stored
     tex_grass = loadImage(textures.spring_flatGrass);
@@ -28,67 +29,72 @@ function preload(){
 
 
 function setup(){
-    createCanvas(720, 720)
+    createCanvas(1280, 720)
+    textAlign(CENTER)
+    rectMode(CENTER)
     frameRate(60)
     angleMode(DEGREES);
     enemies = new Group();
     expPoints = new Group();
-    terrainGroup = new Group();
-
+    worldTiles = new Group();
     player = new Player(320,320, 24, 24)
     player.s.addAnimation('walk', walkAnimation)
     player.s.setCollider('circle', 0,0,6)
     player.s.scale = 4
     player.s.debug = true
-
+    playerHearts = new Hearts();
     floorSprite = createSprite(640,700,1280,40)
     floorSprite.shapeColor = color(166,124,82);
     enemy = new Enemy('red', 200, 200, 30, 30);
-    flyingen = new Flying('blue', 300, 300, 30, 20, redXP, 'flying', 30);
-    console.log(flyingen);
-    
-    //dino = createSprite(320,320, 24, 24)
-    //dino.setCollider('rectangle',0,0,24,24)
-    //dino.debug = true
-    //dino.scale = 4
-
+    playButton = new UI_Button(1280/2, 720/2, 100, 100, {'r': 255, 'g': 100, 'b': 0}, 'Play', ()=>{console.log('Button is pressed!!!'); gameState = 1})
+    debugButton = new UI_Button(1280/2, 480, 100, 100, {'r': 255, 'g': 100, 'b': 0}, 'Levels', ()=>{console.log('Button is pressed!!!'); gameState = 2})
     tex_grass.resize(gridSize, gridSize);
     tex_player.resize(gridSize, gridSize);
-    worldTiles = new Group();
-    // Default Camera Zoom (Play Mode)
-    camera.zoom = 1;
-
-    drawWorld();
-} // setup()
+    fps = new FrameRateCounter()
+}
 
 function draw(){
-    framerate = getFrameRate()
-    //console.log(framerate)
-    color(0,255,100)
-    textSize(20)
-    //text('FPS:' + framerate, 50,50)
-    background(40);
-    worldSprite.draw();
-
-    player.s.collide(worldTiles, ()=> {
-        player.airborne = 0    
-    });
-
-    player.s.collide(floorSprite, ()=>{
-        player.airborne = 0    
-    })
-    
-    player.keyInputs()
-    enemy.loopedFunction(); //contains all methods that need to be looped in draw
-    
-    playerHearts = new Hearts();
-    playerHearts.checkHP(player.curHP);
-    playerHearts.drawHearts();
-
-
-    //animationHandling()
-    drawSprites();
-}
+    background(0);
+    fps.draw()
+    switch(gameState){
+        case 0:
+            text()
+            playButton.draw();
+            debugButton.draw()
+            break;
+        case 1:
+            player.s.collide(floorSprite, ()=>{
+                player.airborne = 0    
+            })
+            player.keyInputs()
+            enemy.collisionCheck();
+            playerHearts = new Hearts();
+            playerHearts.loopInDraw(); //loops all needed methods for hearts
+            break;
+        case 2:
+            //Enter Debug menu draw here 
+            color(0,255,100)
+            textSize(20)
+            background(40);
+            drawWorld();
+            worldSprite.draw();
+            player.s.collide(worldTiles, ()=> {
+                player.airborne = 0    
+            });
+        
+            player.s.collide(floorSprite, ()=>{
+                player.airborne = 0    
+            })
+            
+            player.keyInputs()
+            enemy.loopInDraw();
+            playerHearts.loopInDraw(player.curHP);
+            // Default Camera Zoom (Play Mode)
+            camera.zoom = 1;
+            drawSprites();
+            break;
+        }
+    } 
 
 
 //Takes a spritesheet image, and an array of frames, and produces as animation which can be attached to sprites

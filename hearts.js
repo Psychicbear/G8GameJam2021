@@ -54,4 +54,9 @@ class Hearts {
         }
         this.heartPart = this.curVal - this.heartFull*4;
     } //end calculateHearts()
+
+    loopInDraw(playerHearts){
+        this.checkHP(playerHearts);
+        this.drawHearts();
+    }
 }
