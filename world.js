@@ -25,18 +25,18 @@ class worldPlatform {
     }
 
     draw(){
-        let x = snap(mouseX);
-        let y = snap(mouseY);
+        let x = snap(camera.mouseX);
+        let y = snap(camera.mouseY);
 
         // Draws a square on the grid to indicate where a block will be placed
         fill(255,255,255, 20);
         noStroke()
         rect(x, y, gridSize, gridSize);
 
-        if (mouseWentUp(LEFT)){
+        if (mouseWentUp(LEFT) && mouseIsOverButton == false){
             this.setup(x, y, 50, 50);
             worldTiles.add(this.worldSprite); // Add to Group()
-            editorAddWorldObject(selectedTexture,x, y); // Adds grid tile placement parameters to an array for later saving
+            editorAddWorldObject(selectedTexture, x, y); // Adds grid tile placement parameters to an array for later saving
         }
 
         if(mouseDown(RIGHT)){
