@@ -68,12 +68,9 @@ function setup(){
 
     fps = new FrameRateCounter()
 
-<<<<<<< Updated upstream
     //spike testing
     testSpike = new Spikes(625, 525, 300, 300);
     
-=======
->>>>>>> Stashed changes
 }
 
 

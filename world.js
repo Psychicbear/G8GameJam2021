@@ -4,12 +4,7 @@ let gridSize = 50;
 let gridOffset = gridSize / 2;
 
 let timerThing = 0
-<<<<<<< Updated upstream
-=======
-let timerthing2 = 0
-
 let tex;
->>>>>>> Stashed changes
 
 class worldPlatform {
     constructor() {
