@@ -3,7 +3,7 @@ let gridItem = [];
 let gridSize = 50;
 let gridOffset = gridSize / 2;
 
-
+let timerThing = 0
 
 
 
@@ -43,7 +43,8 @@ class worldPlatform {
         }
 
         // L Key
-        if(keyIsDown(76)) { LoadMapJSON() } 
+        if(keyIsDown(76) && timerThing == 0) { timerThing = 1; LoadMapJSON(); 
+        } 
         // M Key
         if(keyIsDown(77)) { editorSaveJSON(x, y); } 
 

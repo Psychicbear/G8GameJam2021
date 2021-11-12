@@ -1,11 +1,9 @@
 
 let loadedMap = [];
 
-
-
 //this is the one you'll write your code in make sure to change the script tag in index.html to use main.js instead of test.js
-let enemies, expPoints;
-let gameState = 0
+let enemies, expPoints, bulletsGrp;
+let gameState = 2
 function preload(){
     loadedMap = loadJSON("things.json"); // Temporary : this is where the loaded map is stored
 
@@ -36,6 +34,7 @@ function preload(){
 
 function setup(){
     createCanvas(800, 600)
+    noSmooth();
     textAlign(CENTER)
     rectMode(CENTER)
     frameRate(60)
@@ -44,6 +43,7 @@ function setup(){
     enemies = new Group();
     expPoints = new Group();
     worldTiles = new Group();
+    bulletsGrp = new Group();
     player = new Player(320,320, 24, 24)
     player.s.addAnimation('walk', walkAnimation)
     player.s.setCollider('circle', 0,0,6)
@@ -65,7 +65,7 @@ function setup(){
     tex_player.resize(gridSize, gridSize);
 
     fps = new FrameRateCounter()
-
+    
     //editor 
     editorButtonLocation = {x: 50, y: 50, spacing: 70}
     editorButton1= new Editor_Button(editorButtonLocation.x, editorButtonLocation.y, 50, 50,                                    tex_springGrass, '',             ()=>{ selectedTexture = tex_springGrass, console.log("Spring Grass");})
@@ -74,7 +74,6 @@ function setup(){
     editorButton4= new Editor_Button(editorButtonLocation.x + editorButtonLocation.spacing * 3, editorButtonLocation.y, 50, 50, tex_springGrassHillRight, '',    ()=>{ selectedTexture = tex_springGrassHillRight, console.log("Spring Grass Hill Right");})
     editorButton5= new Editor_Button(editorButtonLocation.x + editorButtonLocation.spacing * 4, editorButtonLocation.y, 50, 50, tex_springGrassHillLeftBit, '',  ()=>{ selectedTexture = tex_springGrassHillLeftBit, console.log("Spring Grass Hill Lef2t");})
     editorButton6= new Editor_Button(editorButtonLocation.x + editorButtonLocation.spacing * 5, editorButtonLocation.y, 50, 50, tex_springGrassHillRightBit, '', ()=>{ selectedTexture = tex_springGrassHillRightBit, console.log("Spring Grass Hill Right2");})
-
 }
 
 
@@ -106,15 +105,12 @@ function draw(){
             worldSprite = new worldPlatform();
             worldSprite.draw();
 
-            player.s.collide(worldTiles, ()=> { player.airborne = 0 });
-            player.s.collide(floorSprite, ()=>{ player.airborne = 0 });
-            player.keyInputs()
-            enemy.loopInDraw();
+            player.loopInDraw();
+            //enemy.loopInDraw();
             playerHearts.loopInDraw(player.curHP);
 
             // Default Camera Zoom (Play Mode)
             camera.zoom = 1;
-
             editorButton1.draw(); editorButton2.draw(); editorButton3.draw(); editorButton4.draw(); editorButton5.draw(); editorButton6.draw(); 
 
             drawSprites();
