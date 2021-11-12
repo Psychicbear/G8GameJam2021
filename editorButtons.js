@@ -1,4 +1,5 @@
 let selectedTexture = "";
+let mouseIsOverButton;
 
 class Editor_Button{
     constructor(x, y, w, h, colour, text, callback){
@@ -10,11 +11,13 @@ class Editor_Button{
         this.callback = callback
     }
 
-    draw(){
+    draw() {
+
         if(!this.mouseIsOver()){
             noFill()
             noStroke()
-            
+
+
             rect(this.pos.x, this.pos.y, this.size.w, this.size.h)
             image(this.colour, this.pos.x - 25, this.pos.y - 25);
             
@@ -34,15 +37,17 @@ class Editor_Button{
         
     }// draw()
 
-    mouseIsOver(){
+    mouseIsOver() {
         let bool = false
         cursor(ARROW)
-        if(mouseX > this.pos.x - this.size.w / 2 && mouseX < this.pos.x + this.size.w / 2){
-            if(mouseY > this.pos.y - this.size.h / 2 && mouseY < this.pos.y + this.size.h / 2){
+        if(camera.mouseX > this.pos.x - this.size.w / 2 && camera.mouseX < this.pos.x + this.size.w / 2){
+            if(camera.mouseY > this.pos.y - this.size.h / 2 && camera.mouseY < this.pos.y + this.size.h / 2){
                 bool = true
-                cursor(HAND)
+                // cursor(HAND)
+                
             }
         }
+        mouseIsOverButton = bool;
         return bool
     }
 

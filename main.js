@@ -74,6 +74,8 @@ function setup(){
     editorButton4= new Editor_Button(editorButtonLocation.x + editorButtonLocation.spacing * 3, editorButtonLocation.y, 50, 50, tex_springGrassHillRight, '',    ()=>{ selectedTexture = tex_springGrassHillRight, console.log("Spring Grass Hill Right");})
     editorButton5= new Editor_Button(editorButtonLocation.x + editorButtonLocation.spacing * 4, editorButtonLocation.y, 50, 50, tex_springGrassHillLeftBit, '',  ()=>{ selectedTexture = tex_springGrassHillLeftBit, console.log("Spring Grass Hill Lef2t");})
     editorButton6= new Editor_Button(editorButtonLocation.x + editorButtonLocation.spacing * 5, editorButtonLocation.y, 50, 50, tex_springGrassHillRightBit, '', ()=>{ selectedTexture = tex_springGrassHillRightBit, console.log("Spring Grass Hill Right2");})
+
+
 }
 
 
@@ -112,8 +114,9 @@ function draw(){
             // Default Camera Zoom (Play Mode)
             camera.zoom = 1;
             editorButton1.draw(); editorButton2.draw(); editorButton3.draw(); editorButton4.draw(); editorButton5.draw(); editorButton6.draw(); 
-
             drawSprites();
+
+           
             break;
 
     }
