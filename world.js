@@ -4,7 +4,7 @@ let gridSize = 50;
 let gridOffset = gridSize / 2;
 
 let timerThing = 0
-
+let timerthing2 = 0
 
 
 class worldPlatform {
@@ -33,10 +33,11 @@ class worldPlatform {
         noStroke()
         rect(x, y, gridSize, gridSize);
 
-        if (mouseDown(LEFT) && mouseIsOverButton == false){
+        if (mouseWentDown(LEFT) && mouseIsOverButton == false){
             this.setup(x, y, 50, 50);
             worldTiles.add(this.worldSprite); // Add to Group()
             editorAddWorldObject(x, y); // Adds grid tile placement parameters to an array for later saving
+
         }
 
         if(mouseDown(RIGHT)){
@@ -75,38 +76,63 @@ row[2]  [300, 75]
 
 let gridItemIteration = 0; // Used to reference the rows of data
 function editorAddWorldObject(x, y) {
-
+    let temp;
+    let available = true;
     // FEEL FREE TO DO CHANGE EVERYTHING ABOUT THIS IS YOU HAVE TOO
 
     // add data to the array, 
     // compare the new data to the arrayData, 
     // if the same as an existing location, remove it from the array.
     // else: confirm placement
-    
-    gridItem[gridItemIteration++] = [x,  y]; // Add x and y to a new array row
-
-    for(let i = 0; i < gridItem.length; i++) { // Row Number
-        for(let j = 0; j < gridItem[i].length; j++) { // Column Number
-
-
-            if( gridItem.slice(-1)[0][0] === gridItem[i][0] ) { // only checking the x value right now
-   
-                // gridItem.splice(-1, 1)    // Remove the item
-                // gridItemIteration - 1;   // Roll back the iteration number 
-
-                // console.log(gridItem[i][j])
-                console.log('Location Taken')
-
-            }
-
-            else{
-                console.log('Location Free, Tile Placed');
-
-            }
-
-
+    if(gridItem.length > 0){
+        temp = [x, y];
+        
+        for(let i = 0; i < gridItem.length; i++) { 
+            if(gridItem[i][0] == temp[0] && gridItem[i][1] == temp[1]){
+                console.log('location taken');
+                available = false
+            } 
+            
         }
-    }
+        
+    } 
+    if(available){
+        console.log('location free, adding location')
+        gridItem.push([x, y])
+    } 
+
+
+    //gridItem.push([x,  y]); // Add x and y to a new array row
+    // for(let i = gridItem.length; i > 0; i--) { // Row Number
+    //     if(gridItem[i - 1] == temp){
+    //         console.log('location taken');
+    //         gridItem.splice(i - 1, 1);
+    //     } else {
+    //         gridItem.push([x, y]);
+    //         console.log('location free')
+    //     }
+        
+    //     // for(let j = 0; j < gridItem[i].length; j++) { // Column Number
+
+
+    //     //     if( gridItem.slice(-1)[0][0] === gridItem[i][0] ) { // only checking the x value right now
+   
+    //     //         // gridItem.splice(-1, 1)    // Remove the item
+    //     //         // gridItemIteration - 1;   // Roll back the iteration number 
+
+    //     //         // console.log(gridItem[i][j])
+    //     //         //console.log('Location Taken')
+
+    //     //     }
+
+    //     //     else{
+    //     //         //console.log('Location Free, Tile Placed');
+
+    //     //     }
+
+
+    //     // }
+    // }
 
 
 
