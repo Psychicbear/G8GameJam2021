@@ -1,4 +1,4 @@
-let selectedTexture = "";
+let selectedTexture = "Grass"
 let mouseIsOverButton;
 
 class Editor_Button{
