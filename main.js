@@ -15,6 +15,7 @@ function preload(){
     tex_springGrassHillRight = loadImage("img/GrassHillRight.png");
     tex_springGrassHillLeftBit = loadImage("img/grassHillLeft2.png");
     tex_springGrassHillRightBit = loadImage("img/GrassHillRight2.png");
+    tex_spikes = loadImage("img/spikes.png");
 
 
     //temp images for testing
@@ -55,7 +56,7 @@ function setup(){
     // enemy = new Enemy('red', 200, 200, 30, 30);
     playButton = new UI_Button(width/2, height*0.4, 100, 100, {'r': 255, 'g': 100, 'b': 0}, 'Play', ()=>{console.log('Button is pressed!!!'); gameState = 1})
     debugButton = new UI_Button(width/2, height*0.6, 100, 100, {'r': 255, 'g': 100, 'b': 0}, 'Map Editor', ()=>{console.log('Button is pressed!!!'); gameState = 2})
-
+    tex_spikes.resize(gridSize, gridSize);
     tex_springGrass.resize(gridSize, gridSize);
     tex_springGrassHillLeft.resize(gridSize, gridSize);
     tex_springGrassHillRight.resize(gridSize, gridSize);
@@ -105,15 +106,20 @@ function draw(){
             camera.zoom = 1;
 
             //editor - Janky button creation..
-            editorButtonLocation = {x: -0, y: 35, spacing: 70}
-            editorButton1= new Editor_Button(editorButtonLocation.x + camera.position.x,  editorButtonLocation.y, 50, 50,                                   tex_springGrass, '',             ()=>{ selectedTexture = tex_springGrass, console.log("Spring Grass");})
-            editorButton2= new Editor_Button(editorButtonLocation.x + camera.position.x + editorButtonLocation.spacing, editorButtonLocation.y, 50, 50,     tex_dirt, '',                    ()=>{ selectedTexture = tex_dirt, console.log("Dirt");})
-            editorButton3= new Editor_Button(editorButtonLocation.x + camera.position.x + editorButtonLocation.spacing * 2, editorButtonLocation.y, 50, 50, tex_springGrassHillLeft, '',     ()=>{ selectedTexture = tex_springGrassHillLeft, console.log("Spring Grass Hill Left");})
-            editorButton4= new Editor_Button(editorButtonLocation.x + camera.position.x + editorButtonLocation.spacing * 3, editorButtonLocation.y, 50, 50, tex_springGrassHillRight, '',    ()=>{ selectedTexture = tex_springGrassHillRight, console.log("Spring Grass Hill Right");})
-            editorButton5= new Editor_Button(editorButtonLocation.x + camera.position.x + editorButtonLocation.spacing * 4, editorButtonLocation.y, 50, 50, tex_springGrassHillLeftBit, '',  ()=>{ selectedTexture = tex_springGrassHillLeftBit, console.log("Spring Grass Hill Lef2t");})
-            editorButton6= new Editor_Button(editorButtonLocation.x + camera.position.x + editorButtonLocation.spacing * 5, editorButtonLocation.y, 50, 50, tex_springGrassHillRightBit, '', ()=>{ selectedTexture = tex_springGrassHillRightBit, console.log("Spring Grass Hill Right2");})
+            editorButtonLocation = {x: -55, y: 35, spacing: 70}
+            let xLoc = editorButtonLocation.x + camera.position.x
+            let yLoc = editorButtonLocation.y
+            editorButton1 = new Editor_Button(xLoc,  yLoc, 50, 50,                                   tex_springGrass, '',             ()=>{ selectedTexture = tex_springGrass, console.log("Spring Grass");})
+            editorButton2 = new Editor_Button(xLoc + editorButtonLocation.spacing,     yLoc, 50, 50, tex_dirt, '',                    ()=>{ selectedTexture = tex_dirt, console.log("Dirt");})
+            editorButton3 = new Editor_Button(xLoc + editorButtonLocation.spacing * 2, yLoc, 50, 50, tex_springGrassHillLeft, '',     ()=>{ selectedTexture = tex_springGrassHillLeft, console.log("Spring Grass Hill Left");})
+            editorButton4 = new Editor_Button(xLoc + editorButtonLocation.spacing * 3, yLoc, 50, 50, tex_springGrassHillRight, '',    ()=>{ selectedTexture = tex_springGrassHillRight, console.log("Spring Grass Hill Right");})
+            editorButton5 = new Editor_Button(xLoc + editorButtonLocation.spacing * 4, yLoc, 50, 50, tex_springGrassHillLeftBit, '',  ()=>{ selectedTexture = tex_springGrassHillLeftBit, console.log("Spring Grass Hill Lef2t");})
+            editorButton6 = new Editor_Button(xLoc + editorButtonLocation.spacing * 5, yLoc, 50, 50, tex_springGrassHillRightBit, '', ()=>{ selectedTexture = tex_springGrassHillRightBit, console.log("Spring Grass Hill Right2");})
+            editorButton7 = new Editor_Button(xLoc + editorButtonLocation.spacing * 6, yLoc, 50, 50, tex_spikes, '',                  ()=>{ selectedTexture = tex_spikes, console.log("Spikes");})
 
-            editorButton1.draw(); editorButton2.draw(); editorButton3.draw(); editorButton4.draw(); editorButton5.draw(); editorButton6.draw(); 
+
+
+            editorButton1.draw(); editorButton2.draw(); editorButton3.draw(); editorButton4.draw(); editorButton5.draw(); editorButton6.draw(); editorButton7.draw();
             drawSprites();
 
            

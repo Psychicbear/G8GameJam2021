@@ -2,12 +2,12 @@ let selectedTexture = "";
 let mouseIsOverButton;
 
 class Editor_Button{
-    constructor(x, y, w, h, colour, text, callback){
+    constructor(x, y, w, h, colour, name, callback){
         this.pos = {'x': x, 'y': y}
         this.size = {'w': w, 'h': h}
         this.colour = colour;
         this.button = rect(this.pos.x, this.pos.y, this.size.w, this.size.h)
-        this.text = text
+        this.name = name
         this.callback = callback
     }
 
