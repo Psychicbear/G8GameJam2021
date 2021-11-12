@@ -2,7 +2,7 @@
 let loadedMap = [];
 
 //this is the one you'll write your code in make sure to change the script tag in index.html to use main.js instead of test.js
-let enemies, expPoints, bulletsGrp;
+let enemies, expPoints, bulletsGrp, spikesGrp;
 let gameState = 2
 const MAIN_MENU = 0; const PLAY = 1; const DEBUG = 2;
 function preload(){
@@ -46,6 +46,7 @@ function setup(){
     expPoints = new Group();
     worldTiles = new Group();
     bulletsGrp = new Group();
+    spikesGrp = new Group();
     player = new Player(320,320, 24, 24)
     player.s.addAnimation('walk', walkAnimation)
     player.s.setCollider('circle', 0,0,6)
@@ -69,7 +70,7 @@ function setup(){
     fps = new FrameRateCounter()
 
     //spike testing
-    testSpike = new Spikes();
+    testSpike = new Spikes(625, 525, 300, 300);
     
 }
 
@@ -101,7 +102,7 @@ function draw(){
             background(40);
             worldSprite = new worldPlatform();
             worldSprite.draw();
-
+            testSpike.collisionCheck();
             player.loopInDraw();
             //enemy.loopInDraw();
             camera.off()

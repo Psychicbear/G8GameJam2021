@@ -31,9 +31,9 @@ class Hearts {
         if(this.heartPart == 1){
             image(oneQuartHeart, (50) + this.spacing*(i) + this.xSp, this.yVal, this.size, this.size);
         } else if(this.heartPart == 2){
-            image(halfHeart,(camera.position.x - 360) + this.spacing*(i) + this.xSp, this.yVal, this.size, this.size);
+            image(halfHeart,(50) + this.spacing*(i) + this.xSp, this.yVal, this.size, this.size);
         } else if(this.heartPart == 3){
-            image(threeQuartHeart, (camera.position.x - 360) +this.spacing*(i) + this.xSp, this.yVal, this.size, this.size);
+            image(threeQuartHeart, (50) +this.spacing*(i) + this.xSp, this.yVal, this.size, this.size);
         } 
     }
 

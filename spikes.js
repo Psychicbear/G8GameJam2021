@@ -1,27 +1,26 @@
 class Spikes {
-    //static spikesGrp = new Group();
-    constructor(x, y){
-        this.s = createSprite(625, 525, 30, 30);
+    constructor(x, y, resX, resY){
+        this.s = createSprite(x, y, 30, 30);
         this.s.addImage(tex_spikes);
         this.s.debug = true;
-        
+        this.s.immovable = true;
         this.s.setCollider('rectangle', 0, 10, tex_spikes.width, tex_spikes.height - 20);
-        this.s.addToGroup(Spikes.spikesGrp);
-
-
+        this.s.dmg = 1;
+        this.s.addToGroup(spikesGrp);
+        this.s.respawnPoint = {
+            x: resX,
+            y: resY
+        };
     }
 
     collisionCheck(){
-        Spikes.spikesGrp.collide(player.s, spikeCollision(spriteA, spriteB))
-
+        player.s.collide(spikesGrp, spikeCollision)
     }
-
-   
 }
 
 function spikeCollision(spriteA, spriteB){
-    spriteB.velocity.x *= -1;
-    spriteB.velocity.y *= -1;
-
-
+    //respawn at designated respawn point
+    player.s.position.x = spriteB.respawnPoint.x;
+    player.s.position.y = spriteB.respawnPoint.y;
+    player.curHP -= spriteB.dmg;
 }

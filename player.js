@@ -22,7 +22,7 @@ class Player{
         // camera.position.y = player.s.position.y - height *0.35
         //Move left or right
         if(keyIsDown(RIGHT_ARROW) && keyIsDown(LEFT_ARROW)){
-            this.s.addSpeed(0,0)
+            this.s.velocity.x = 0;
         } 
         
         else if(keyIsDown(RIGHT_ARROW)){
@@ -121,7 +121,7 @@ class Player{
                 }
             } 
                  
-            });
+        });
         this.s.collide(floorSprite, ()=>{ player.airborne = 0 });
         this.keyInputs();
         this.rangeAttack();
