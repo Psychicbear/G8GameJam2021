@@ -65,6 +65,9 @@ function setup(){
     tex_player.resize(gridSize, gridSize);
 
     fps = new FrameRateCounter()
+
+    //spike testing
+    testSpike = new Spikes();
     
 }
 

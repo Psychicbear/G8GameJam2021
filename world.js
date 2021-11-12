@@ -4,8 +4,6 @@ let gridSize = 50;
 let gridOffset = gridSize / 2;
 
 let timerThing = 0
-let timerthing2 = 0
-
 
 class worldPlatform {
     constructor() {
