@@ -14,6 +14,8 @@ class worldPlatform {
 
     setup(x, y, w, h) {
         this.worldSprite = createSprite(x, y, w, h);
+        this.worldSprite.rotation = Math.random() * 360
+        console.log(this.worldSprite.rotation)
         if(selectedTexture == ''){
 
             this.worldSprite.addImage(tex_springGrass);
@@ -34,9 +36,13 @@ class worldPlatform {
         rect(x, y, gridSize, gridSize);
 
         if (mouseWentDown(LEFT) && mouseIsOverButton == false){
-            this.setup(x, y, 50, 50);
-            worldTiles.add(this.worldSprite); // Add to Group()
-            editorAddWorldObject(x, y); // Adds grid tile placement parameters to an array for later saving
+            if(editorAddWorldObject(x,y)){
+                this.setup(x, y, 50, 50);
+                worldTiles.add(this.worldSprite); // Add to Group()
+                gridItem.push([x, y])
+            }
+
+            //editorAddWorldObject(x, y); // Adds grid tile placement parameters to an array for later saving
 
         }
 
@@ -98,8 +104,9 @@ function editorAddWorldObject(x, y) {
     } 
     if(available){
         console.log('location free, adding location')
-        gridItem.push([x, y])
+        //gridItem.push([x, y])
     } 
+    return available
 
 
     //gridItem.push([x,  y]); // Add x and y to a new array row
