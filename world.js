@@ -14,8 +14,8 @@ class worldPlatform {
 
     setup(x, y, w, h) {
         this.worldSprite = createSprite(x, y, w, h);
-        this.worldSprite.rotation = Math.random() * 360
-        console.log(this.worldSprite.rotation)
+        //this.worldSprite.rotation = Math.random() * 360
+        //console.log(this.worldSprite.rotation)
         if(selectedTexture == ''){
 
             this.worldSprite.addImage(tex_springGrass);

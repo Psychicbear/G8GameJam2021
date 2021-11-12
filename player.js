@@ -27,25 +27,27 @@ class Player{
         
         else if(keyIsDown(RIGHT_ARROW)){
             // console.log('Move Right')
-            this.s.addSpeed(10,0)
-            camera.position.x = player.s.position.x
+            //this.s.addSpeed(10,0)
+            this.s.setVelocity(lerp(this.s.velocity.x, 10,0.1), this.s.velocity.y)
+            //camera.position.x = player.s.position.x
         } 
         
         else if(keyIsDown(LEFT_ARROW)){
-            this.s.addSpeed(10,180)
-            camera.position.x = player.s.position.x
+            //this.s.addSpeed(10,180)
+            this.s.setVelocity(lerp(this.s.velocity.x, -10,0.1), this.s.velocity.y)
+            //camera.position.x = player.s.position.x
         } 
         
         else {
-            this.s.velocity.lerp(createVector(0 , this.s.velocity.y), 0.1)
+            this.s.setVelocity(lerp(this.s.velocity.x, 0,0.1), this.s.velocity.y)
         }
-
+        camera.position.x = lerp(camera.position.x, player.s.position.x, 0.1)
         if(keyIsDown(32) && this.airborne < this.airTime){//If jump button held and this.airborne timer less than this.airTime
             this.jump()
         } else if(keyWentUp(32) && this.airborne){//If jump button released and this.airborne == true (not 0)
             this.airborne = this.airTime//Disallow player to press jump again until this.airborne set to 0
             this.s.addSpeed(10, 90)
-        } else{this.s.addSpeed(10,90)}
+        } else{this.s.setVelocity(this.s.velocity.x, lerp(this.s.velocity.y, 10, 0.1)); this.airborne = this.airTime}
 
         if(keyIsDown(UP_ARROW)){ // up arrow used for player looking up to shoot
             this.lookUp = true;
@@ -110,7 +112,16 @@ class Player{
     }
 
     loopInDraw(){
-        this.s.collide(worldTiles, ()=> { player.airborne = 0 });
+        this.s.collide(worldTiles, (playerSprite, tileSprite)=> {
+            if(playerSprite.position.x > tileSprite.position.x - (gridSize/2) || playerSprite.position.x < tileSprite.position.x + (gridSize/2)){
+                if(playerSprite.position.y < tileSprite.position.y - (gridSize/2)){
+                    player.airborne = 0
+                } else{
+                    player.airborne = player.airTime
+                }
+            } 
+                 
+            });
         this.s.collide(floorSprite, ()=>{ player.airborne = 0 });
         this.keyInputs();
         this.rangeAttack();
@@ -119,9 +130,17 @@ class Player{
         }
         this.bulletTimer++;
     }
+
+    hurtPlayer(dmg, hurtTime){
+
+    }
 }
-function onGround(){
-    jump = false;
+
+function lerpVelocity(x,y, magnitude){
+    
+    newVelX = lerp(this.player.s.velocity.x, x, magnitude)
+    originY = this.player.s.velocity.y
+    this.s.setVelocity(lerp)
 }
 
 //needs collisionCheck() function: bullets, floor, enemies, boxes, buttons, walls etc.
