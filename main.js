@@ -4,6 +4,7 @@ let loadedMap = [];
 //this is the one you'll write your code in make sure to change the script tag in index.html to use main.js instead of test.js
 let enemies, expPoints, bulletsGrp;
 let gameState = 2
+const MAIN_MENU = 0; const PLAY = 1; const DEBUG = 2;
 function preload(){
     loadedMap = loadJSON("things.json"); // Temporary : this is where the loaded map is stored
 
@@ -77,13 +78,13 @@ function draw(){
     background(0);
     fps.draw()
     switch(gameState){
-        case 0:
+        case MAIN_MENU:
             text()
             playButton.draw();
             debugButton.draw()
             break;
 
-        case 1:
+        case PLAY:
             player.s.collide(floorSprite, ()=>{
                 player.airborne = 0    
             })
@@ -93,7 +94,7 @@ function draw(){
             playerHearts.loopInDraw(); //loops all needed methods for hearts
             break;
 
-        case 2:
+        case DEBUG:
             //Enter Debug menu draw here 
             color(0,255,100)
             textSize(20)
@@ -103,8 +104,9 @@ function draw(){
 
             player.loopInDraw();
             //enemy.loopInDraw();
+            camera.off()
             playerHearts.loopInDraw(player.curHP);
-
+            camera.on()
             // Default Camera Zoom (Play Mode)
             camera.zoom = 1;
 
