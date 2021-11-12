@@ -34,7 +34,11 @@ function preload(){
 
 function setup(){
     createCanvas(800, 600)
+<<<<<<< Updated upstream
     noSmooth();
+=======
+    noSmooth() 
+>>>>>>> Stashed changes
     textAlign(CENTER)
     rectMode(CENTER)
     frameRate(60)
@@ -48,7 +52,7 @@ function setup(){
     player.s.addAnimation('walk', walkAnimation)
     player.s.setCollider('circle', 0,0,6)
     player.s.scale = 4
-    player.s.debug = true
+    player.s.debug = false
     playerHearts = new Hearts();
     floorSprite = createSprite(width / 2 , height - 30, 1280, 40)
     floorSprite.shapeColor = color(166,124,82);

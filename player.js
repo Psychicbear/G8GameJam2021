@@ -26,7 +26,7 @@ class Player{
         } 
         
         else if(keyIsDown(RIGHT_ARROW)){
-            console.log('Move Right')
+            // console.log('Move Right')
             this.s.addSpeed(10,0)
             camera.position.x = player.s.position.x
         } 

@@ -33,10 +33,10 @@ class worldPlatform {
         noStroke()
         rect(x, y, gridSize, gridSize);
 
-        if (mouseWentUp(LEFT) && mouseIsOverButton == false){
+        if (mouseDown(LEFT) && mouseIsOverButton == false){
             this.setup(x, y, 50, 50);
             worldTiles.add(this.worldSprite); // Add to Group()
-            editorAddWorldObject(selectedTexture, x, y); // Adds grid tile placement parameters to an array for later saving
+            editorAddWorldObject(x, y); // Adds grid tile placement parameters to an array for later saving
         }
 
         if(mouseDown(RIGHT)){
@@ -66,13 +66,49 @@ function snap(op) {
 
 // 2D array selection example
 // gridItem[4][0]  // forth array, firstData
-// gridItem[0][1]  // first array, secondData
-let gridItemIteration = 0;
-function editorAddWorldObject(selectedTexture, x, y) {
+/*
+      col[0], col[1]
+row[0]  [250, 75],
+row[1]  [250, 95],
+row[2]  [300, 75]
+*/
 
-    // TODO: store textureName, x, y into an array.
+let gridItemIteration = 0; // Used to reference the rows of data
+function editorAddWorldObject(x, y) {
 
-    gridItem[gridItemIteration++] = [selectedTexture, x,  y]; 
+    // FEEL FREE TO DO CHANGE EVERYTHING ABOUT THIS IS YOU HAVE TOO
+
+    // add data to the array, 
+    // compare the new data to the arrayData, 
+    // if the same as an existing location, remove it from the array.
+    // else: confirm placement
+    
+    gridItem[gridItemIteration++] = [x,  y]; // Add x and y to a new array row
+
+    for(let i = 0; i < gridItem.length; i++) { // Row Number
+        for(let j = 0; j < gridItem[i].length; j++) { // Column Number
+
+
+            if( gridItem.slice(-1)[0][0] === gridItem[i][0] ) { // only checking the x value right now
+   
+                // gridItem.splice(-1, 1)    // Remove the item
+                // gridItemIteration - 1;   // Roll back the iteration number 
+
+                // console.log(gridItem[i][j])
+                console.log('Location Taken')
+
+            }
+
+            else{
+                console.log('Location Free, Tile Placed');
+
+            }
+
+
+        }
+    }
+
+
 
 } // addGridPosition
 
@@ -82,7 +118,7 @@ function editorSaveJSON(){
     // e.g. gridItem[[32, 44], [56, 123]]
 
     let json = {};
-    json.itemType = JSON.stringify(selectedTexture);
+    // json.itemType = JSON.stringify(selectedTexture);
     json.location = gridItem
     saveJSON(json, "things.json");
     
