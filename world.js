@@ -14,8 +14,8 @@ class worldPlatform {
 
     setup(x, y, w, h) {
         this.worldSprite = createSprite(x, y, w, h);
-        //this.worldSprite.rotation = Math.random() * 360
-        //console.log(this.worldSprite.rotation)
+        // this.worldSprite.rotation = Math.random() * 360
+        // console.log(this.worldSprite.rotation)
         if(selectedTexture == ''){
 
             this.worldSprite.addImage(tex_springGrass);
@@ -84,12 +84,7 @@ let gridItemIteration = 0; // Used to reference the rows of data
 function editorAddWorldObject(x, y) {
     let temp;
     let available = true;
-    // FEEL FREE TO DO CHANGE EVERYTHING ABOUT THIS IS YOU HAVE TOO
 
-    // add data to the array, 
-    // compare the new data to the arrayData, 
-    // if the same as an existing location, remove it from the array.
-    // else: confirm placement
     if(gridItem.length > 0){
         temp = [x, y];
         
@@ -107,41 +102,6 @@ function editorAddWorldObject(x, y) {
         //gridItem.push([x, y])
     } 
     return available
-
-
-    //gridItem.push([x,  y]); // Add x and y to a new array row
-    // for(let i = gridItem.length; i > 0; i--) { // Row Number
-    //     if(gridItem[i - 1] == temp){
-    //         console.log('location taken');
-    //         gridItem.splice(i - 1, 1);
-    //     } else {
-    //         gridItem.push([x, y]);
-    //         console.log('location free')
-    //     }
-        
-    //     // for(let j = 0; j < gridItem[i].length; j++) { // Column Number
-
-
-    //     //     if( gridItem.slice(-1)[0][0] === gridItem[i][0] ) { // only checking the x value right now
-   
-    //     //         // gridItem.splice(-1, 1)    // Remove the item
-    //     //         // gridItemIteration - 1;   // Roll back the iteration number 
-
-    //     //         // console.log(gridItem[i][j])
-    //     //         //console.log('Location Taken')
-
-    //     //     }
-
-    //     //     else{
-    //     //         //console.log('Location Free, Tile Placed');
-
-    //     //     }
-
-
-    //     // }
-    // }
-
-
 
 } // addGridPosition
 
