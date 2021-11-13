@@ -4,6 +4,7 @@ let gridSize = 50;
 let gridOffset = gridSize / 2;
 
 let timerThing = 0
+let tex;
 
 class worldPlatform {
     constructor() {
@@ -12,16 +13,14 @@ class worldPlatform {
 
     setup(x, y, w, h) {
         this.worldSprite = createSprite(x, y, w, h);
-        // this.worldSprite.rotation = Math.random() * 360
-        // console.log(this.worldSprite.rotation)
-        if(selectedTexture == ''){
-
+        if(selectedTexture == ""){
+            selectedTexture = "Grass"
             this.worldSprite.addImage(tex_springGrass);
         }
         else{
-            this.worldSprite.addImage(selectedTexture);
+            tex = textureLogic(selectedTexture)
+            this.worldSprite.addImage(tex);
         }
-        
     }
 
     draw(){
@@ -33,25 +32,21 @@ class worldPlatform {
         noStroke()
         rect(x, y, gridSize, gridSize);
 
-        if (mouseWentDown(LEFT) && mouseIsOverButton == false){
-            if(editorAddWorldObject(x,y)){
+        if (mouseDown(LEFT) && mouseIsOverButton == false){
+            if(editorAddWorldObject(selectedTexture, x,y)){
                 this.setup(x, y, 50, 50);
                 worldTiles.add(this.worldSprite); // Add to Group()
-                gridItem.push([x, y])
+                gridItem.push([selectedTexture, x, y])
             }
-
-            //editorAddWorldObject(x, y); // Adds grid tile placement parameters to an array for later saving
-
         }
 
-        if(mouseDown(RIGHT)){
-        }
+        if(mouseDown(RIGHT)){}
 
         // L Key
         if(keyIsDown(76) && timerThing == 0) { timerThing = 1; LoadMapJSON(); 
         } 
         // M Key
-        if(keyIsDown(77)) { editorSaveJSON(x, y); } 
+        if(keyIsDown(77) && timerThing == 0) { timerThing = 1; editorSaveJSON(x, y); } 
 
     }// draw()
 
@@ -69,35 +64,23 @@ function snap(op) {
 
 
 
-// 2D array selection example
-// gridItem[4][0]  // forth array, firstData
-/*
-      col[0], col[1]
-row[0]  [250, 75],
-row[1]  [250, 95],
-row[2]  [300, 75]
-*/
-
-let gridItemIteration = 0; // Used to reference the rows of data
-function editorAddWorldObject(x, y) {
+function editorAddWorldObject(selectedTexture, x, y) {
     let temp;
     let available = true;
 
     if(gridItem.length > 0){
-        temp = [x, y];
+        temp = [selectedTexture, x, y];
         
         for(let i = 0; i < gridItem.length; i++) { 
-            if(gridItem[i][0] == temp[0] && gridItem[i][1] == temp[1]){
+            if( gridItem[i][1] == temp[1] && gridItem[i][2] == temp[2] ){
                 console.log('location taken');
                 available = false
             } 
-            
         }
         
     } 
     if(available){
         console.log('location free, adding location')
-        //gridItem.push([x, y])
     } 
     return available
 
@@ -105,11 +88,9 @@ function editorAddWorldObject(x, y) {
 
 
 function editorSaveJSON(){
-    // gridItem[ [x], [y] ]
-    // e.g. gridItem[[32, 44], [56, 123]]
+    // e.g. gridItem[["Grass"], [32, 44], [56, 123]]
 
     let json = {};
-    // json.itemType = JSON.stringify(selectedTexture);
     json.location = gridItem
     saveJSON(json, "things.json");
     
@@ -119,18 +100,39 @@ function editorSaveJSON(){
 function LoadMapJSON() {
     
     for(let i = 0; i < loadedMap.location.length; i++) {
-        type = loadedMap.itemType
-        xpos = loadedMap.location[i][0]
-        ypos = loadedMap.location[i][1]
-
+        
+        item = loadedMap.location[i][0]
+        xpos = loadedMap.location[i][1]
+        ypos = loadedMap.location[i][2]
 
         worldSprite = createSprite(xpos, ypos, 50, 50);
 
-        if(type == "spring_grass") {
-            worldSprite.addImage(tex_springGrass);
-            worldTiles.add(worldSprite); // Add to Group()
-        }
+        if(item == "Grass") { worldSprite.addImage(tex_springGrass); }
+        if(item == "Dirt") { worldSprite.addImage(tex_dirt); }
+        if(item == "Player") { worldSprite.addImage(tex_player); }
+        if(item == "Grass Hill Left") { worldSprite.addImage(tex_springGrassHillLeft); }
+        if(item == "Grass Hill Right") { worldSprite.addImage(tex_springGrassHillRight); }
+        if(item == "Grass Hill Left2") { worldSprite.addImage(tex_springGrassHillLeft2); }
+        if(item == "Grass Hill Right2") { worldSprite.addImage(tex_springGrassHillRight2); }
+        if(item == "Spikes") { worldSprite.addImage(tex_spikes); }
+        
+        
+        worldTiles.add(worldSprite); // Add to Group()
+
 
     }
     console.log("Map Loaded");
 }
+
+
+function textureLogic(textureName) {
+    if(textureName == "Grass") { return tex_springGrass }
+    if(textureName == "Dirt") { return tex_dirt }
+    if(textureName == "Player") { return tex_player }
+    if(textureName == "Grass Hill Left") { return tex_springGrassHillLeft }
+    if(textureName == "Grass Hill Right") { return tex_springGrassHillRight }
+    if(textureName == "Grass Hill Left2") { return tex_springGrassHillLeft2 }
+    if(textureName == "Grass Hill Right2") { return tex_springGrassHillRight2 }
+    if(textureName == "Spikes") { return tex_spikes }
+}
+

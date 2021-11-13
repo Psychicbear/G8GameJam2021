@@ -1,24 +1,23 @@
 
 let loadedMap = [];
 
+//Object.keys(textures.grass).length
+
 //this is the one you'll write your code in make sure to change the script tag in index.html to use main.js instead of test.js
-let enemies, expPoints, bulletsGrp, spikesGrp, boxes;
+let enemies, expPoints, bulletsGrp, spikesGrp, boxes, buttonGrp, doors;
 let gameState = 2
 const MAIN_MENU = 0; const PLAY = 1; const DEBUG = 2;
 function preload(){
     loadedMap = loadJSON("things.json"); // Temporary : this is where the loaded map is stored
 
-    
-    tex_player = loadImage("img/player.png");
-    tex_dirt = loadImage("img/Dirt.png");
-    tex_springGrass = loadImage("img/Grass.png");
-    tex_springGrassHillLeft = loadImage("img/grassHillLeft.png");
-    tex_springGrassHillRight = loadImage("img/GrassHillRight.png");
-    tex_springGrassHillLeftBit = loadImage("img/grassHillLeft2.png");
-    tex_springGrassHillRightBit = loadImage("img/GrassHillRight2.png");
-    tex_spikes = loadImage("img/spikes.png");
-
-
+    tex_player =                loadImage("img/player.png");
+    tex_dirt =                  loadImage("img/Dirt.png");
+    tex_springGrass =           loadImage("img/Grass.png");
+    tex_springGrassHillLeft =   loadImage("img/GrassHillLeft.png");
+    tex_springGrassHillRight =  loadImage("img/GrassHillRight.png");
+    tex_springGrassHillLeft2 =  loadImage("img/GrassHillLeft2.png");
+    tex_springGrassHillRight2 = loadImage("img/GrassHillRight2.png");
+    tex_spikes =                loadImage("img/spikes.png");
     //temp images for testing
     redXP = loadImage('redXP.png');
     fullHeart = loadImage('heartImages/fullHeart.png');
@@ -26,11 +25,11 @@ function preload(){
     threeQuartHeart = loadImage('heartImages/34Heart.png');
     oneQuartHeart = loadImage('heartImages/14Heart.png');
 
-    loadSprites = loadImage('doux.png')
+    loadSprites = loadImage('doux.png');
     animJSON = loadJSON('playerAnimations.json', (data) =>{
         walkAnimation = animationFromSpriteSheet(loadSprites, animJSON['walk'])
         runAnimation = animationFromSpriteSheet(loadSprites, animJSON['run'])
-    })
+    });
 }
 
 
@@ -48,6 +47,9 @@ function setup(){
     bulletsGrp = new Group();
     spikesGrp = new Group();
     boxes = new Group();
+    buttonGrp = new Group();
+    doors = new Group();
+
     player = new Player(320,320, 24, 24)
     player.s.addAnimation('walk', walkAnimation)
     player.s.setCollider('circle', 0,0,6)
@@ -63,8 +65,8 @@ function setup(){
     tex_springGrass.resize(gridSize, gridSize);
     tex_springGrassHillLeft.resize(gridSize, gridSize);
     tex_springGrassHillRight.resize(gridSize, gridSize);
-    tex_springGrassHillLeftBit.resize(gridSize, gridSize);
-    tex_springGrassHillRightBit.resize(gridSize, gridSize);
+    tex_springGrassHillLeft2.resize(gridSize, gridSize);
+    tex_springGrassHillRight2.resize(gridSize, gridSize);
     tex_dirt.resize(gridSize, gridSize);
     tex_player.resize(gridSize, gridSize);
 
@@ -73,6 +75,8 @@ function setup(){
     //testing
     testSpike = new Spikes(625, 525, 300, 300);
     testBox = new Box(550, 475);
+    door = new Door(400, 500, 500, 548);
+    door2 = new Door(300, 500, 200, 548);
 
 }
 
@@ -106,10 +110,18 @@ function draw(){
             worldSprite.draw();
           
             player.loopInDraw();
+
+
+            //test objects
             //testSpike.collisionCheck();
-            testBox.loopInDraw();
-            player.s.debug = true;
             //enemy.loopInDraw();
+            testBox.loopInDraw();
+            door.loopInDraw();
+            door2.loopInDraw();
+
+
+            player.s.debug = true;
+            
             camera.off()
             playerHearts.loopInDraw(player.curHP);
             camera.on()
@@ -120,13 +132,13 @@ function draw(){
             editorButtonLocation = {x: -55, y: 35, spacing: 70}
             let xLoc = editorButtonLocation.x + camera.position.x
             let yLoc = editorButtonLocation.y
-            editorButton1 = new Editor_Button(xLoc,  yLoc, 50, 50,                                   tex_springGrass, '',             ()=>{ selectedTexture = tex_springGrass, console.log("Spring Grass");})
-            editorButton2 = new Editor_Button(xLoc + editorButtonLocation.spacing,     yLoc, 50, 50, tex_dirt, '',                    ()=>{ selectedTexture = tex_dirt, console.log("Dirt");})
-            editorButton3 = new Editor_Button(xLoc + editorButtonLocation.spacing * 2, yLoc, 50, 50, tex_springGrassHillLeft, '',     ()=>{ selectedTexture = tex_springGrassHillLeft, console.log("Spring Grass Hill Left");})
-            editorButton4 = new Editor_Button(xLoc + editorButtonLocation.spacing * 3, yLoc, 50, 50, tex_springGrassHillRight, '',    ()=>{ selectedTexture = tex_springGrassHillRight, console.log("Spring Grass Hill Right");})
-            editorButton5 = new Editor_Button(xLoc + editorButtonLocation.spacing * 4, yLoc, 50, 50, tex_springGrassHillLeftBit, '',  ()=>{ selectedTexture = tex_springGrassHillLeftBit, console.log("Spring Grass Hill Lef2t");})
-            editorButton6 = new Editor_Button(xLoc + editorButtonLocation.spacing * 5, yLoc, 50, 50, tex_springGrassHillRightBit, '', ()=>{ selectedTexture = tex_springGrassHillRightBit, console.log("Spring Grass Hill Right2");})
-            editorButton7 = new Editor_Button(xLoc + editorButtonLocation.spacing * 6, yLoc, 50, 50, tex_spikes, '',                  ()=>{ selectedTexture = tex_spikes, console.log("Spikes");})
+            editorButton1 = new Editor_Button(xLoc,  yLoc, 50, 50,                                   tex_springGrass, '',             ()=>{ selectedTexture = "Grass", console.log("Spring Grass");})
+            editorButton2 = new Editor_Button(xLoc + editorButtonLocation.spacing,     yLoc, 50, 50, tex_dirt, '',                    ()=>{ selectedTexture = "Dirt", console.log("Dirt");})
+            editorButton3 = new Editor_Button(xLoc + editorButtonLocation.spacing * 2, yLoc, 50, 50, tex_springGrassHillLeft, '',     ()=>{ selectedTexture = "Grass Hill Left", console.log("Spring Grass Hill Left");})
+            editorButton4 = new Editor_Button(xLoc + editorButtonLocation.spacing * 3, yLoc, 50, 50, tex_springGrassHillRight, '',    ()=>{ selectedTexture = "Grass Hill Right", console.log("Spring Grass Hill Right");})
+            editorButton5 = new Editor_Button(xLoc + editorButtonLocation.spacing * 4, yLoc, 50, 50, tex_springGrassHillLeft2, '',    ()=>{ selectedTexture = "Grass Hill Left2", console.log("Spring Grass Hill Left2");})
+            editorButton6 = new Editor_Button(xLoc + editorButtonLocation.spacing * 5, yLoc, 50, 50, tex_springGrassHillRight2, '',   ()=>{ selectedTexture = "Grass Hill Right2", console.log("Spring Grass Hill Right2");})
+            editorButton7 = new Editor_Button(xLoc + editorButtonLocation.spacing * 6, yLoc, 50, 50, tex_spikes, '',                  ()=>{ selectedTexture = "Spikes", console.log("Spikes");})
 
 
 
