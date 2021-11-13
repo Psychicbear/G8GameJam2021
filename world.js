@@ -26,6 +26,10 @@ class worldPlatform {
         let x = snap(camera.mouseX);
         let y = snap(camera.mouseY);
 
+        textSize(10)
+        textAlign(RIGHT)
+        text("x: "+ x + "\n y:" + y, x- 30, y)
+
         // Draws a square on the grid to indicate where a block will be placed
         fill(255,255,255, 20);
         noStroke()
@@ -48,7 +52,7 @@ class worldPlatform {
                 // this.setup(x, y, gridSize, gridSize);
                 // worldTiles.remove(this.worldSprite); // Add to Group()
                 
-                //gridItem.push([selectedTexture, x, y])
+                // gridItem.push([selectedTexture, x, y])
             }
         }
 
@@ -65,7 +69,7 @@ class worldPlatform {
 // World Grid System
 //
 // Creates a grid and snaps the current XY position to
-// closest grid tile to the mouse pointer
+// the closest grid tile to the mouse pointer
 /* ============================================================================== */
 let gridItem = [];
 let gridSize = 50;
@@ -123,7 +127,6 @@ function editorSaveJSON(){
 //
 // Reads a json file that has the texture name and the coordinates of a tile.
 // Assigns an image based on the texture name tag (item).
-// 
 /* ============================================================================== */
 function LoadMapJSON(map) {
 
@@ -163,9 +166,9 @@ function LoadMapJSON(map) {
 }
 
 /* ============================================================================== */
-// Char to texture return. Used in map loading.
+// Char to texture return. Used in map painting.
 //
-// Takes a string, if that string matches, then return that texture name.
+// Takes a string, if that string matches, then return that texture name.add
 /* ============================================================================== */
 function textureLogic(textureName) {
     if(textureName == "Grass") { return tex_springGrass }
@@ -179,6 +182,5 @@ function textureLogic(textureName) {
     if(textureName == "Blank") { return tex_blank }
     if(textureName == "JumpPad") { return tex_jumpPad }
     if(textureName == "DoorH2") { return tex_doorH2 }
-
 }
 
