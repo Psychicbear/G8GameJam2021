@@ -1,7 +1,7 @@
 class Player{
     constructor(x,y,w,h){
         this.s = createSprite(x,y,w,h)
-        this.s.maxSpeed = 10
+        //this.s.maxSpeed = 10
         this.maxHP = 12
         this.curHP = 12
         this.airborne = 0
@@ -22,32 +22,31 @@ class Player{
         // camera.position.y = player.s.position.y - height *0.35
         //Move left or right
         if(keyIsDown(RIGHT_ARROW) && keyIsDown(LEFT_ARROW)){
-            this.s.addSpeed(0,0)
+            this.s.velocity.x = 0
         } 
         
         else if(keyIsDown(RIGHT_ARROW)){
-            // console.log('Move Right')
-            //this.s.addSpeed(10,0)
-            this.s.setVelocity(lerp(this.s.velocity.x, 10,0.1), this.s.velocity.y)
-            //camera.position.x = player.s.position.x
+            this.s.velocity.x = lerp(this.s.velocity.x, 8,0.1)
         } 
         
         else if(keyIsDown(LEFT_ARROW)){
-            //this.s.addSpeed(10,180)
-            this.s.setVelocity(lerp(this.s.velocity.x, -10,0.1), this.s.velocity.y)
-            //camera.position.x = player.s.position.x
+            this.s.velocity.x = lerp(this.s.velocity.x, -8,0.1)
         } 
         
         else {
-            this.s.setVelocity(lerp(this.s.velocity.x, 0,0.1), this.s.velocity.y)
+            this.s.velocity.x = 0
         }
         camera.position.x = lerp(camera.position.x, player.s.position.x, 0.1)
         if(keyIsDown(32) && this.airborne < this.airTime){//If jump button held and this.airborne timer less than this.airTime
-            this.jump()
+            this.s.velocity.y = lerp(this.s.velocity.y, -8, 0.5)
+            this.airborne++
         } else if(keyWentUp(32) && this.airborne){//If jump button released and this.airborne == true (not 0)
             this.airborne = this.airTime//Disallow player to press jump again until this.airborne set to 0
-            this.s.addSpeed(10, 90)
-        } else{this.s.setVelocity(this.s.velocity.x, lerp(this.s.velocity.y, 10, 0.1)); this.airborne = this.airTime}
+            this.s.velocity.y = lerp(this.s.velocity.y, 10, 0.08)
+        } else{
+            this.s.velocity.y = lerp(this.s.velocity.y, 10, 0.08)
+            this.airborne = this.airTime
+        }
 
         if(keyIsDown(UP_ARROW)){ // up arrow used for player looking up to shoot
             this.lookUp = true;
@@ -90,7 +89,7 @@ class Player{
     
     bulletsRemove(){
         for (let i = this.bullets.length; i > 0; i--){ //done weirdly just in case need to make it a p5 shape. otherwise player.bullets can be p5 group, simplify all this
-            if(this.bullets[i - 1].status == 'removed'){
+            if(this.bullets[i - 1].status == 'removed' || !this.bullets[i - 1].visible){
                 this.bullets[i - 1].remove();
                 this.bullets.splice(i - 1, 1); 
             } else if (this.bullets[i - 1].status == 'active'){
@@ -106,18 +105,14 @@ class Player{
         variable = direction
     }
 
-    jump(){
-        this.s.addSpeed(30,-90)
-        this.airborne++
-    }
-
     loopInDraw(){
         this.s.collide(worldTiles, (playerSprite, tileSprite)=> {
-            if(playerSprite.position.x > tileSprite.position.x - (gridSize/2) || playerSprite.position.x < tileSprite.position.x + (gridSize/2)){
-                if(playerSprite.position.y < tileSprite.position.y - (gridSize/2)){
+            if(playerSprite.position.x > tileSprite.position.x - ((gridSize/2) + 1) || playerSprite.position.x < tileSprite.position.x + ((gridSize/2) + 1)){
+                if(playerSprite.position.y < tileSprite.position.y - ((gridSize/2) + 1)){
                     player.airborne = 0
                 } else{
                     player.airborne = player.airTime
+                    player.s.velocity.x = 0
                 }
             } 
                  

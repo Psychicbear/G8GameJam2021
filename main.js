@@ -138,3 +138,46 @@ function animationFromSpriteSheet(img, frames){
     animation = loadAnimation(spriteSheet)
     return animation
 }
+
+function createGreyImg(img){
+    img.loadPixels()
+    img.originalPixels = img.pixels.map((x) => x)
+    for (var y = 0; y < height; y++) {
+        for (var x = 0; x < width; x++) {
+            var index = (x + y * width)*4;
+            var r = img.pixels[index+0];
+            var g = img.pixels[index+1];
+            var b = img.pixels[index+2];
+            var a = img.pixels[index+3];     
+            
+            var luma = r*0.299 + g*0.587 + b*0.0114;
+            img.pixels[index+0] = luma;
+            img.pixels[index+1] = luma;
+            img.pixels[index+2] = luma;
+    }
+  }
+  img.updatePixels();
+}
+
+async function lerpImageColour(img, lerpval){  
+    await new Promise((resolve,reject) => {
+        img.loadPixels()
+        for (var y = 0; y < height; y++) {
+            for (var x = 0; x < width; x++) {
+                var index = (x + y * width)*4;
+                var r = img.pixels[index+0];
+                var originR = img.originalPixels[index+0];
+                var g = img.pixels[index+1];
+                var originG = img.originalPixels[index+1];
+                var b = img.pixels[index+2];
+                var originB = img.originalPixels[index+2];
+                img.pixels[index+0] = lerp(r, originR, lerpval);
+                img.pixels[index+1] = lerp(g, originG, lerpval);
+                img.pixels[index+2] = lerp(b, originB, lerpval);
+        }
+      }
+      img.updatePixels();
+      resolve()
+    })
+
+}
