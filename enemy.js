@@ -9,7 +9,7 @@ class Enemy {
         this.colour = colour;
         this.XPAmt = XP;
         this.speed = speed;
-        this.img = img
+        this.img = img;
     }
 
     takeDmg(amt){
