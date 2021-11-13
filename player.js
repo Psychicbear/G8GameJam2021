@@ -39,31 +39,26 @@ class Player{
             this.s.velocity.x = 0
         }
 
+
+        // camera.position.x = lerp(camera.position.x, player.s.position.x, 0.1)
+
         // F Key
-        if(keyWentDown(70) && timerThing == 0) { 
-            if(freeCamera == true){
-                timerThing = 1; 
-                freeCamera = true
-                // camera.position.x = camera.position.x  
-                console.log(freeCamera)
-            }
+        // if(keyWentDown(70) && timerThing == 0) { 
+        //     if(freeCamera == true){
+        //         timerThing = 1; 
+        //         freeCamera = true
+        //         // camera.position.x = camera.position.x  
+        //         console.log(freeCamera)
+        //     }
 
-            else{
-                timerThing = 1;
-                freeCamera = false
-                camera.position.x = lerp(camera.position.x, player.s.position.x, 0.1)
-                console.log(freeCamera)
-            }
+        //     else{
+        //         timerThing = 1;
+        //         freeCamera = false
+        //         camera.position.x = lerp(camera.position.x, player.s.position.x, 0.1)
+        //         console.log(freeCamera)
+        //     }
 
-        }
-
-
-        
-
-
-        
-
-        
+        // }
 
         if(keyIsDown(32) && this.airborne < this.airTime){//If jump button held and this.airborne timer less than this.airTime
             this.s.velocity.y = lerp(this.s.velocity.y, -8, 0.5)

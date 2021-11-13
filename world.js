@@ -1,8 +1,4 @@
 
-let gridItem = [];
-let gridSize = 50;
-let gridOffset = gridSize / 2;
-
 let timerThing = 0
 let tex;
 
@@ -14,11 +10,13 @@ class worldPlatform {
     setup(x, y, w, h) {
         this.worldSprite = createSprite(x, y, w, h);
         this.worldSprite.debug = true;
+
+        // Determines the texture to be used by default
         if(selectedTexture == ""){
             selectedTexture = "Grass"
             this.worldSprite.addImage(tex_springGrass);
         }
-        else{
+        else{ // calls the textureLogic method to get the correct texture to paint
             tex = textureLogic(selectedTexture)
             this.worldSprite.addImage(tex);
         }
@@ -34,18 +32,28 @@ class worldPlatform {
         rect(x, y, gridSize, gridSize);
 
         if (mouseDown(LEFT) && mouseIsOverButton == false){
-            if(editorAddWorldObject(selectedTexture, x,y)){
-                this.setup(x, y, 50, 50);
+            if(editorAddWorldObject(selectedTexture, x,y)){ // Checks with the method that the tile is free
+
+                this.setup(x, y, gridSize, gridSize);
+
                 worldTiles.add(this.worldSprite); // Add to Group()
                 gridItem.push([selectedTexture, x, y])
             }
         }
 
-        if(mouseDown(RIGHT)){}
+        if(mouseDown(RIGHT)){
+            
+            if(!editorAddWorldObject(selectedTexture, x,y)){ // Checks with the method that the tile is taken
+                console.log("remove")
+                // this.setup(x, y, gridSize, gridSize);
+                // worldTiles.remove(this.worldSprite); // Add to Group()
+                
+                //gridItem.push([selectedTexture, x, y])
+            }
+        }
 
         // L Key
-        if(keyIsDown(76) && timerThing == 0) { timerThing = 1; LoadMapJSON(); 
-        } 
+        if(keyIsDown(76) && timerThing == 0) { timerThing = 1; LoadMapJSON(); } 
         // M Key
         if(keyIsDown(77) && timerThing == 0) { timerThing = 1; editorSaveJSON(x, y); } 
 
@@ -53,18 +61,28 @@ class worldPlatform {
 
 } // class worldPlatform
 
+/* ============================================================================== */
+// World Grid System
+//
+// Creates a grid and snaps the current XY position to
+// closest grid tile to the mouse pointer
+/* ============================================================================== */
+let gridItem = [];
+let gridSize = 50;
+let gridOffset = gridSize / 2;
 function snap(op) {
-    // subtract offset (to center lines)
-    // divide by gridSize to get row/column
-    // round to snap to the closest one
-    let cell = Math.round((op - gridOffset) / gridSize);
-    // multiply back to gridSize scale
-    // add offset to center
-    return cell * gridSize + gridOffset;
+
+    let tile = Math.round((op - gridOffset) / gridSize);
+
+    return tile * gridSize + gridOffset;
 } // snap()
 
 
-
+/* ============================================================================== */
+// Add World Objects to Array
+//
+// Only allows placement if a tile does not exist in the XY position of the grid
+/* ============================================================================== */
 function editorAddWorldObject(selectedTexture, x, y) {
     let temp;
     let available = true;
@@ -74,30 +92,39 @@ function editorAddWorldObject(selectedTexture, x, y) {
         
         for(let i = 0; i < gridItem.length; i++) { 
             if( gridItem[i][1] == temp[1] && gridItem[i][2] == temp[2] ){
-                console.log('location taken');
+                // console.log('location taken');
                 available = false
             } 
         }
         
     } 
     if(available){
-        console.log('location free, adding location')
+        // console.log('location free, adding location')
     } 
     return available
 
 } // addGridPosition
 
-
+/* ============================================================================== */
+// Map Saving
+//
+// Takes the contents of the gridItem array and writes it to a json (user is prompted)
+// e.g. gridItem[["Grass"], [32, 44], [56, 123]]
+/* ============================================================================== */
 function editorSaveJSON(){
-    // e.g. gridItem[["Grass"], [32, 44], [56, 123]]
-
-    let json = {};l
+    
+    let json = {};
     json.location = gridItem
     saveJSON(json, "things.json");
-    
 }
 
-
+/* ============================================================================== */
+// Map Loading
+//
+// Reads a json file that has the texture name and the coordinates of a tile.
+// Assigns an image based on the texture name tag (item).
+// 
+/* ============================================================================== */
 function LoadMapJSON(map) {
 
     if(gameState == 0){
@@ -135,7 +162,11 @@ function LoadMapJSON(map) {
     console.log("Map Loaded");
 }
 
-
+/* ============================================================================== */
+// Char to texture return. Used in map loading.
+//
+// Takes a string, if that string matches, then return that texture name.
+/* ============================================================================== */
 function textureLogic(textureName) {
     if(textureName == "Grass") { return tex_springGrass }
     if(textureName == "Dirt") { return tex_dirt }
