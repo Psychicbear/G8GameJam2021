@@ -41,18 +41,22 @@ class worldPlatform {
                 this.setup(x, y, gridSize, gridSize);
 
                 worldTiles.add(this.worldSprite); // Add to Group()
+                this.worldSprite.setCollider("rectangle", 0, 0, 50, 50);
                 gridItem.push([selectedTexture, x, y])
+                
+                console.log(this.worldSprite);
             }
         }
 
         if(mouseDown(RIGHT)){
-            
+
             if(!editorAddWorldObject(selectedTexture, x,y)){ // Checks with the method that the tile is taken
-                console.log("remove")
-                // this.setup(x, y, gridSize, gridSize);
-                // worldTiles.remove(this.worldSprite); // Add to Group()
-                
-                // gridItem.push([selectedTexture, x, y])
+                console.log("remove")              
+
+                // console.log(gridItem.splice(this.worldSprite, 1))
+
+                //gridItem.splice(this.worldSprite)
+                // worldTiles.remove(this.worldSprite)
             }
         }
 
@@ -131,7 +135,7 @@ function editorSaveJSON(){
 function LoadMapJSON(map) {
 
     if(gameState == 0){
-        map = menuMap
+        map = loadedMap
     }
     else if(gameState == 2){
         map = loadedMap

@@ -1,8 +1,6 @@
 
 let loadedMap = [];
-let menuMap = [];
-
-//Object.keys(textures.grass).length
+let map = [];
 
 //this is the one you'll write your code in make sure to change the script tag in index.html to use main.js instead of test.js
 let enemies, expPoints, bulletsGrp, spikesGrp, boxes, buttonGrp, doors, airTiles, checkpoints;
@@ -10,8 +8,8 @@ let gameState = 2
 const MAIN_MENU = 0; const PLAY = 1; const DEBUG = 2;
 
 function preload(){
-    loadedMap = loadJSON("enemyTest.json"); // Temporary : this is where the loaded map is stored
-    menuMap = loadJSON("menuMap.json");
+    map = loadJSON("things.json");
+    loadedMap = loadJSON("things.json"); // Temporary : this is where the loaded map is stored
 
     tex_player =                loadImage("img/player.png");
     tex_dirt =                  loadImage("img/Dirt.png");
@@ -88,38 +86,28 @@ function setup(){
     fps = new FrameRateCounter()
 
     //testing
-    testSpike = new Spikes(625, 525, 300, 300);
-    testBox = new Box(550, 475);
-    door = new Door(400, 500, 500, 548);
-    door2 = new Door(300, 500, 200, 548);
-    player.createCheckpoint(50, 50);
+    // testSpike = new Spikes(625, 525, 300, 300);
+    // testBox = new Box(550, 475);
+    // door = new Door(400, 500, 500, 548);
+    // door2 = new Door(300, 500, 200, 548);
+    // player.createCheckpoint(50, 50);
 
 }
 
 
 function draw(){
+    // clear();
     background(40);
     fps.draw()
     switch(gameState){
         case MAIN_MENU:
-            // LoadMapJSON(menuMap)
             text()
             playButton.draw();
             debugButton.draw()
             break;
 
         case PLAY:
-            player.s.collide(floorSprite, ()=>{
-                player.airborne = 0    
-            })
-            player.keyInputs()
-            // enemy.collisionCheck();
-            playerHearts = new Hearts();
-            playerHearts.loopInDraw(); //loops all needed methods for hearts
-            break;
-
-        case DEBUG:
-            //Enter Debug menu draw here 
+            
             color(0,255,100)
             textSize(20)
             background(40);
@@ -128,14 +116,31 @@ function draw(){
           
             player.loopInDraw();
 
+            player.s.debug = true;
+ 
+            playerHearts.loopInDraw(player.curHP);
+            camera.on()
+            // Default Camera Zoom (Play Mode)
+            camera.zoom = 1;
+            break;
+
+        case DEBUG:
+            //Enter Debug menu draw here 
+            // LoadMapJSON()
+            color(0,255,100)
+            textSize(20)
+            background(40);
+            worldSprite = new worldPlatform();
+            worldSprite.draw();
+          
+            player.loopInDraw();
 
             //test objects
             //testSpike.collisionCheck();
             //enemy.loopInDraw();
-            testBox.loopInDraw();
-            door.loopInDraw();
-            door2.loopInDraw();
-
+            // testBox.loopInDraw();
+            // door.loopInDraw();
+            // door2.loopInDraw();
 
             player.s.debug = true;
             
