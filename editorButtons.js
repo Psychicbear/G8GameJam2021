@@ -44,7 +44,7 @@ class Editor_Button{
             if(camera.mouseY > this.pos.y - this.size.h / 2 && camera.mouseY < this.pos.y + this.size.h / 2){
                 bool = true
                 // cursor(HAND)
-                fill(0)
+                // fill(0)
                 
             }
         }

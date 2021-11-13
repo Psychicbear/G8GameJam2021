@@ -23,8 +23,7 @@ function preload(){
     tex_spikes =                loadImage("img/spikes.png");
     tex_blank =                 loadImage("img/blank.png");
     tex_jumpPad =               loadImage("img/jumpPad.png");
-    tex_doorH2 =               loadImage("img/doorH2.png");
-
+    tex_doorH2 =                loadImage("img/doorH2.png");
 
     //temp images for testing
     redXP = loadImage('redXP.png');
@@ -42,6 +41,7 @@ function preload(){
 
 function setup(){
     createCanvas(800, 600)
+    // createCanvas(windowWidth,windowHeight*0.92)
     noSmooth();
     textAlign(CENTER)
     rectMode(CENTER)
@@ -65,9 +65,12 @@ function setup(){
     playerHearts = new Hearts();
     floorSprite = createSprite(width / 2 , height - 30, 1280, 40)
     floorSprite.shapeColor = color(166,124,82);
-    // enemy = new Enemy('red', 200, 200, 30, 30);
     playButton = new UI_Button(width/2, height*0.4, 100, 100, {'r': 255, 'g': 100, 'b': 0}, 'Play', ()=>{console.log('Button is pressed!!!'); gameState = 1})
     debugButton = new UI_Button(width/2, height*0.6, 100, 100, {'r': 255, 'g': 100, 'b': 0}, 'Map Editor', ()=>{console.log('Button is pressed!!!'); gameState = 2})
+
+    /* ============================================================================== */
+    // Texture Resizing
+    /* ============================================================================== */
     tex_spikes.resize(gridSize, gridSize);
     tex_springGrass.resize(gridSize, gridSize);
     tex_springGrassHillLeft.resize(gridSize, gridSize);
@@ -142,10 +145,14 @@ function draw(){
             fill(255,255,255);
             textSize(12);
             textAlign(CENTER);
-            text("Sprites in World: " + allSprites.length,  + camera.position.x,camera.position.y - 250)
+            text("Sprites in World: " + allSprites.length,  + camera.position.x,camera.position.y - 260)
 
-            
-            //editor - Janky button creation..
+            /* ============================================================================== */
+            // Editor Buttons
+            //
+            // I'm just, so, so sorry - Bridget
+            /* ============================================================================== */
+            //editor - Janky button creation...
             fill(255,255,255,10)
             noStroke()
             editorButtonLocation = {x: width * (-0.38), y: -200, spacing: 70}
@@ -161,9 +168,11 @@ function draw(){
             editorButton8 = new Editor_Button(xLoc + editorButtonLocation.spacing * 7, yLoc, 50, 50, tex_blank, '',                   ()=>{ selectedTexture = "Blank", console.log("Blank");})
             editorButton9 = new Editor_Button(xLoc + editorButtonLocation.spacing * 8, yLoc, 50, 50, tex_jumpPad, '',                 ()=>{ selectedTexture = "JumpPad", console.log("JumpPad");})
             editorButton10 = new Editor_Button(xLoc + editorButtonLocation.spacing * 9, yLoc, 50, 100, tex_doorH2, '',                ()=>{ selectedTexture = "DoorH2", console.log("DoorH2");})
-
+            editorButtonNoClickMask = new Editor_Button(xLoc,  yLoc, 4000, 100);
             editorButton1.draw(); editorButton2.draw(); editorButton3.draw(); editorButton4.draw(); editorButton5.draw(); editorButton6.draw(); 
             editorButton7.draw(); editorButton8.draw(); editorButton9.draw(); editorButton10.draw();
+            editorButtonNoClickMask.mouseIsOver(); // Prevents placing tiles while within the mask area. Mask must be the last button item.
+
             drawSprites();
            
             break;
