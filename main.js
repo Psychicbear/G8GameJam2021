@@ -160,7 +160,7 @@ function draw(){
             editorButton7 = new Editor_Button(xLoc + editorButtonLocation.spacing * 6, yLoc, 50, 50, tex_spikes, '',                  ()=>{ selectedTexture = "Spikes", console.log("Spikes");})
             editorButton8 = new Editor_Button(xLoc + editorButtonLocation.spacing * 7, yLoc, 50, 50, tex_blank, '',                   ()=>{ selectedTexture = "Blank", console.log("Blank");})
             editorButton9 = new Editor_Button(xLoc + editorButtonLocation.spacing * 8, yLoc, 50, 50, tex_jumpPad, '',                 ()=>{ selectedTexture = "JumpPad", console.log("JumpPad");})
-            editorButton10 = new Editor_Button(xLoc + editorButtonLocation.spacing * 9, yLoc, 50, 80, tex_doorH2, '',                ()=>{ selectedTexture = "DoorH2", console.log("DoorH2");})
+            editorButton10 = new Editor_Button(xLoc + editorButtonLocation.spacing * 9, yLoc, 50, 100, tex_doorH2, '',                ()=>{ selectedTexture = "DoorH2", console.log("DoorH2");})
 
             editorButton1.draw(); editorButton2.draw(); editorButton3.draw(); editorButton4.draw(); editorButton5.draw(); editorButton6.draw(); 
             editorButton7.draw(); editorButton8.draw(); editorButton9.draw(); editorButton10.draw();
