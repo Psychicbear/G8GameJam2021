@@ -23,6 +23,7 @@ class Hearts {
                 this.drawParts();
             } else { //no full hearts and no part hearts, hp is 0
                 console.log("player is dead");
+                player.respawnPlayer();
             }
         }
     } //end drawHearts()

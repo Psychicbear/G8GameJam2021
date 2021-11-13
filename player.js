@@ -13,11 +13,26 @@ class Player{
         this.attack = 0
         this.hurtTime = 90
         this.hurt = 0
+        this.s.XP = 0;
 
         this.lookUp = false;
         this.bullets = [];
         this.bulletTimer = 300;
         this.bulletCap = 25;
+
+        //checkpoint
+    }
+    createCheckpoint(x, y){
+        this.c = createSprite(x, y, 50, 50);
+        this.c.immovable = true;
+        this.c.addToGroup(checkpoints);
+    }
+    respawnPlayer(){
+        this.curHP = this.maxHP; //reset health
+        this.XP = this.c.XP;
+        this.s.position.x = this.c.position.x;
+        this.s.position.y = this.c.position.y;
+        
     }
 
     keyInputs(){
@@ -159,6 +174,7 @@ class Player{
                  
         });
         this.s.collide(floorSprite, ()=>{ player.airborne = 0 });
+        checkpoints.collide(this.s, hitCheckpoint);
         this.keyInputs();
         this.rangeAttack();
         if(this.bullets.length > 0){
@@ -177,6 +193,20 @@ function lerpVelocity(x,y, magnitude){
     newVelX = lerp(this.player.s.velocity.x, x, magnitude)
     originY = this.player.s.velocity.y
     this.s.setVelocity(lerp)
+}
+
+function hitCheckpoint(playerSprite, checkpointSprite){
+    checkpointSprite.XP = playerSprite.XP;
+    //need a way to set the current checkpoint??
+
+    
+    /*
+    for(let i = enemyDead.length; i > 0; i--){ //confirm enemy deaths
+        enemyDead[i - 1].sprite.setCollider('rectangle', 0, 0, 50, 50);
+        enemyDead[i - 1].sprite.visible = true;
+        enemyDead[i - 1].splice(i - 1, 1);
+    }
+    */
 }
 
 //needs collisionCheck() function: bullets, floor, enemies, boxes, buttons, walls etc.

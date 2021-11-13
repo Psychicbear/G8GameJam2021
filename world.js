@@ -150,7 +150,7 @@ function LoadMapJSON(map) {
         if(item == "Grass Hill Left2") { worldSprite.addImage(tex_springGrassHillLeft2); }
         if(item == "Grass Hill Right2") { worldSprite.addImage(tex_springGrassHillRight2); }
         if(item == "Spikes") { worldSprite.addImage(tex_spikes); }
-        if(item == "Blank") { worldSprite.addImage(tex_blank); }
+        if(item == "Blank") { worldSprite.addImage(tex_blank); worldSprite.addToGroup(airTiles);}
         if(item == "JumpPad") { worldSprite.addImage(tex_jumpPad); }
         if(item == "DoorH2") { worldSprite.addImage(tex_doorH2); }
         

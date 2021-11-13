@@ -28,6 +28,7 @@ class Enemy {
         //when animation reach last frame:
         //if(this.animation.getFrame() == this.animation.getLastFrame() && this.animation.getAnimationLabel() == 'defeat'){
         this.sprite.setCollider('rectangle', 0, 0, 0, 0);
+        this.sprite.visible = false;
         enemyDead.push(this);
         this.sprite.remove(); //above might not work, since it has to be constantly checked until animation is done, and can't with this current structure
         this.dropXP();
@@ -47,7 +48,7 @@ class Enemy {
     }
 
     move(){
-
+//air tiles
     }
 
     collisionCheck(){

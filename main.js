@@ -5,12 +5,12 @@ let menuMap = [];
 //Object.keys(textures.grass).length
 
 //this is the one you'll write your code in make sure to change the script tag in index.html to use main.js instead of test.js
-let enemies, expPoints, bulletsGrp, spikesGrp, boxes, buttonGrp, doors;
+let enemies, expPoints, bulletsGrp, spikesGrp, boxes, buttonGrp, doors, airTiles, checkpoints;
 let gameState = 2
 const MAIN_MENU = 0; const PLAY = 1; const DEBUG = 2;
 
 function preload(){
-    loadedMap = loadJSON("things.json"); // Temporary : this is where the loaded map is stored
+    loadedMap = loadJSON("enemyTest.json"); // Temporary : this is where the loaded map is stored
     menuMap = loadJSON("menuMap.json");
 
     tex_player =                loadImage("img/player.png");
@@ -56,6 +56,8 @@ function setup(){
     boxes = new Group();
     buttonGrp = new Group();
     doors = new Group();
+    airTiles = new Group();
+    checkpoints = new Group();
 
     player = new Player(320,320, 24, 24)
     player.s.addAnimation('walk', walkAnimation)
@@ -90,6 +92,7 @@ function setup(){
     testBox = new Box(550, 475);
     door = new Door(400, 500, 500, 548);
     door2 = new Door(300, 500, 200, 548);
+    player.createCheckpoint(50, 50);
 
 }
 
