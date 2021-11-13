@@ -90,22 +90,29 @@ function editorAddWorldObject(selectedTexture, x, y) {
 function editorSaveJSON(){
     // e.g. gridItem[["Grass"], [32, 44], [56, 123]]
 
-    let json = {};
+    let json = {};l
     json.location = gridItem
     saveJSON(json, "things.json");
     
 }
 
 
-function LoadMapJSON() {
+function LoadMapJSON(map) {
+
+    if(gameState == 0){
+        map = menuMap
+    }
+    else if(gameState == 2){
+        map = loadedMap
+    }
     
-    for(let i = 0; i < loadedMap.location.length; i++) {
+    for(let i = 0; i < map.location.length; i++) {
         
         item = loadedMap.location[i][0]
         xpos = loadedMap.location[i][1]
         ypos = loadedMap.location[i][2]
 
-        worldSprite = createSprite(xpos, ypos, 50, 50);
+        worldSprite = createSprite(xpos, ypos, 48, 48);
 
         if(item == "Grass") { worldSprite.addImage(tex_springGrass); }
         if(item == "Dirt") { worldSprite.addImage(tex_dirt); }
@@ -115,6 +122,9 @@ function LoadMapJSON() {
         if(item == "Grass Hill Left2") { worldSprite.addImage(tex_springGrassHillLeft2); }
         if(item == "Grass Hill Right2") { worldSprite.addImage(tex_springGrassHillRight2); }
         if(item == "Spikes") { worldSprite.addImage(tex_spikes); }
+        if(item == "Blank") { worldSprite.addImage(tex_blank); }
+        if(item == "JumpPad") { worldSprite.addImage(tex_jumpPad); }
+        if(item == "DoorH2") { worldSprite.addImage(tex_doorH2); }
         
         
         worldTiles.add(worldSprite); // Add to Group()
@@ -134,5 +144,9 @@ function textureLogic(textureName) {
     if(textureName == "Grass Hill Left2") { return tex_springGrassHillLeft2 }
     if(textureName == "Grass Hill Right2") { return tex_springGrassHillRight2 }
     if(textureName == "Spikes") { return tex_spikes }
+    if(textureName == "Blank") { return tex_blank }
+    if(textureName == "JumpPad") { return tex_jumpPad }
+    if(textureName == "DoorH2") { return tex_doorH2 }
+
 }
 

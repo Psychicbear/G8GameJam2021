@@ -1,3 +1,5 @@
+let freeCamera = false
+
 class Player{
     constructor(x,y,w,h){
         this.s = createSprite(x,y,w,h)
@@ -41,7 +43,33 @@ class Player{
         else {
             this.s.setVelocity(lerp(this.s.velocity.x, 0,0.1), this.s.velocity.y)
         }
-        camera.position.x = lerp(camera.position.x, player.s.position.x, 0.1)
+
+        // F Key
+        if(keyWentDown(70) && timerThing == 0) { 
+            if(freeCamera == true){
+                timerThing = 1; 
+                freeCamera = true
+                // camera.position.x = camera.position.x  
+                console.log(freeCamera)
+            }
+
+            else{
+                timerThing = 1;
+                freeCamera = false
+                camera.position.x = lerp(camera.position.x, player.s.position.x, 0.1)
+                console.log(freeCamera)
+            }
+
+        }
+
+
+        
+
+
+        
+
+        
+
         if(keyIsDown(32) && this.airborne < this.airTime){//If jump button held and this.airborne timer less than this.airTime
             this.jump()
         } else if(keyWentUp(32) && this.airborne){//If jump button released and this.airborne == true (not 0)
@@ -60,6 +88,24 @@ class Player{
         } else if(this.s.velocity.x < -0.0001){ //if x velocity is negative (left) make animation face right
             this.s.mirrorX(-1);
         } 
+
+        let cameraMoveRate = 25;
+        // W
+        if(keyIsDown(87)) {
+            camera.position.y -= cameraMoveRate
+        }
+        // S
+        if(keyIsDown(83)) {
+            camera.position.y += cameraMoveRate
+        }
+        // A
+        if(keyIsDown(65)) {
+            camera.position.x -= cameraMoveRate
+        }
+        // D
+        if(keyIsDown(68)) {
+            camera.position.x += cameraMoveRate
+        }
        
     }
 
