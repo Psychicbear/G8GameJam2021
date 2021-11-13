@@ -29,7 +29,7 @@ class Player{
     }
     respawnPlayer(){
         this.curHP = this.maxHP; //reset health
-        this.XP = this.c.XP;
+        this.s.XP = this.c.XP;
         this.s.position.x = this.c.position.x;
         this.s.position.y = this.c.position.y;
         

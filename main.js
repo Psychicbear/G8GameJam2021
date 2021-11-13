@@ -92,7 +92,7 @@ function setup(){
     // testBox = new Box(550, 475);
     // door = new Door(400, 500, 500, 548);
     // door2 = new Door(300, 500, 200, 548);
-    //player.createCheckpoint(50, 50);
+    player.createCheckpoint(50, 50);
     enemy = new Enemy(250, 100, 10, 10, enemyWalk);
 
     //resize enemyWalk animation
