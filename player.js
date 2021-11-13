@@ -55,7 +55,8 @@ class Player{
         }
 
 
-        // camera.position.x = lerp(camera.position.x, player.s.position.x, 0.1)
+        camera.position.x = lerp(camera.position.x, player.s.position.x, 0.1)
+        camera.position.y = player.s.position.y - 50
 
         // F Key
         // if(keyWentDown(70) && timerThing == 0) { 
