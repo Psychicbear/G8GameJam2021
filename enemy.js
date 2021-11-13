@@ -1,15 +1,22 @@
 let enemyDead = [];
 class Enemy {
-    constructor(colour, x, y, w, h, img, type = 'melee', hp = 1, attackDmg = 1, XP = 5, speed = 5){
-        this.sprite = createSprite(x, y, w, h);
-        enemies.add(this.sprite);
+    constructor(x, y, w, h, img, type = 'melee', hp = 1, attackDmg = 1, XP = 5, speed = 5){
+        this.s = createSprite(x, y, w, h);
+
         this.type = type;
         this.hp = hp;
         this.attackDmg = attackDmg;
-        this.colour = colour;
         this.XPAmt = XP;
         this.speed = speed;
-        this.img = img;
+        this.anim = img;
+        //this.s.debug = true
+        this.s.setCollider('rectangle', 0, -2, 55, 55)
+        this.s.direction = 1;
+        
+        this.s.addAnimation('walk', this.anim);
+        enemies.add(this.s);
+       
+        
     }
 
     takeDmg(amt){
@@ -27,11 +34,12 @@ class Enemy {
         //defeat sound
         //when animation reach last frame:
         //if(this.animation.getFrame() == this.animation.getLastFrame() && this.animation.getAnimationLabel() == 'defeat'){
-        this.sprite.setCollider('rectangle', 0, 0, 0, 0);
-        this.sprite.visible = false;
-        enemyDead.push(this);
-        this.sprite.remove(); //above might not work, since it has to be constantly checked until animation is done, and can't with this current structure
         this.dropXP();
+        this.s.setCollider('rectangle', 0, 0, 0, 0);
+        this.s.visible = false;
+        enemyDead.push(this);
+        this.s.remove(); //above might not work, since it has to be constantly checked until animation is done, and can't with this current structure
+        
         //add sprite to
    
         //}
@@ -40,7 +48,7 @@ class Enemy {
     dropXP(){
         //creates instance of xp class
         for(let i = 0; i < this.XPAmt; i++){
-            let f = new XP(this.sprite.position.x, this.sprite.position.y, this.colour, redXP);
+            let f = new XP(this.s.position.x, this.s.position.y, redXP);
             f.sprite.addToGroup(expPoints);
 
         }
@@ -48,35 +56,59 @@ class Enemy {
     }
 
     move(){
-//air tiles
+       this.s.velocity.x = 2 
     }
 
     collisionCheck(){
-        //collide with floor and walls
-        //collide with other enemies?
+        //stop collision happening lots. invincibility frames......too late to do?
+        enemies.collide(player.s, () => 
+        {
+            player.curHP -= this.attackDmg;
+            player.s.velocity.x *= -1;
+            player.s.velocity.y *= -1;
+        })
+        enemies.collide(bulletsGrp, () => this.defeated())
+        enemies.collide(worldTiles)
+        enemies.collide(floorSprite)
+
+        //bullets collide with enemy _______________________________________________________
   
 
     }
-    pickup(){ //should add to player class instead, rename pickupXP
-        this.remove();
-     
-        //add to player colour
-    }
+ 
 
     loopInDraw(){ //function called in draw that holds all other functions that need to be looped
-        this.collisionCheck();
+        
+        
+        if(this.s.velocity.x > 0.0001){ //if x velocity is positive (right) make animation face right
+            this.s.mirrorX(1);
+        } else if(this.s.velocity.x < -0.0001){ //if x velocity is negative (left) make animation face right
+            this.s.mirrorX(-1);
+        } 
+        this.s.velocity.y = 10; //gravity
         this.move();
+        enemies.collide(airTiles, () => this.s.velocity.x *= -1)
+        this.collisionCheck();
+        console.log("enemy x velocity: " + this.s.velocity.x)
     }
 
 }
-
-class XP {
-    constructor(x, y, colour, img){ //currently have to input img. change to a function that does it automatically?
-        this.sprite = createSprite(x + random(-20, 20), y + random(-20, 20)); //x and y are the locations of the enemy
-        img.resize(random(5, 15), 0); //have different images are different sizes later, plus colours
-        this.sprite.addImage(colour, img);
-        this.sprite.colour = colour;
+function changeDirection(){
+    console.log("touch")
+    if(this.direction == 1){
+        this.direction = -1;
+    } else {
+        this.direction = 1;
     }
+
+}
+class XP {
+    constructor(x, y,img){ //currently have to input img. change to a function that does it automatically?
+        this.sprite = createSprite(x + random(-20, 20), y + random(-20, 20)); //x and y are the locations of the enemy
+        img.resize(10, 0); //have different images are different sizes later, plus colours
+        this.sprite.addImage(img);
+    }
+
 
 }
 

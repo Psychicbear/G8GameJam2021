@@ -175,6 +175,7 @@ class Player{
         });
         this.s.collide(floorSprite, ()=>{ player.airborne = 0 });
         checkpoints.collide(this.s, hitCheckpoint);
+        expPoints.collide(this.s, (spriteA, spriteB) => {spriteA.remove(); spriteB.XP++})
         this.keyInputs();
         this.rangeAttack();
         if(this.bullets.length > 0){
@@ -197,6 +198,7 @@ function lerpVelocity(x,y, magnitude){
 
 function hitCheckpoint(playerSprite, checkpointSprite){
     checkpointSprite.XP = playerSprite.XP;
+    //set all others as not active by looping through checkpoint group, set this one as current?
     //need a way to set the current checkpoint??
 
     

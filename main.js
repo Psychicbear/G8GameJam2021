@@ -32,6 +32,7 @@ function preload(){
     threeQuartHeart = loadImage('heartImages/34Heart.png');
     oneQuartHeart = loadImage('heartImages/14Heart.png');
 
+    enemyWalk = loadAnimation('redSmol/1.png', 'redSmol/2.png', 'redSmol/3.png', 'redSmol/4.png', 'redSmol/5.png', 'redSmol/6.png', 'redSmol/7.png', 'redSmol/8.png', 'redSmol/9.png', 'redSmol/10.png', 'redSmol/11.png', 'redSmol/12.png', 'redSmol/13.png', 'redSmol/14.png', 'redSmol/15.png', 'redSmol/16.png', 'redSmol/17.png', 'redSmol/18.png')
     loadSprites = loadImage('doux.png');
     animJSON = loadJSON('playerAnimations.json', (data) =>{
         walkAnimation = animationFromSpriteSheet(loadSprites, animJSON['walk'])
@@ -47,6 +48,7 @@ function setup(){
     rectMode(CENTER)
     frameRate(60)
     angleMode(DEGREES);
+    console.log(enemyWalk)
 
     enemies = new Group();
     expPoints = new Group();
@@ -93,6 +95,11 @@ function setup(){
     door = new Door(400, 500, 500, 548);
     door2 = new Door(300, 500, 200, 548);
     player.createCheckpoint(50, 50);
+    enemy = new Enemy(250, 100, 10, 10, enemyWalk);
+
+    //resize enemyWalk animation
+    resizeEnemy(70);
+   
 
 }
 
@@ -131,11 +138,10 @@ function draw(){
 
             //test objects
             //testSpike.collisionCheck();
-            //enemy.loopInDraw();
+            enemy.loopInDraw();
             testBox.loopInDraw();
             door.loopInDraw();
             door2.loopInDraw();
-
 
             player.s.debug = true;
             
@@ -231,4 +237,12 @@ async function lerpImageColour(img, lerpval){
       resolve()
     })
 
+}
+
+function resizeEnemy(size){
+    for(let i = 0; i < enemyWalk.images.length; i++){
+        enemyWalk.images[i].width = size
+        enemyWalk.images[i].height = size
+    }
+   
 }

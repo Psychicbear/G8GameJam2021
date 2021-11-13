@@ -154,8 +154,10 @@ function LoadMapJSON(map) {
         if(item == "JumpPad") { worldSprite.addImage(tex_jumpPad); }
         if(item == "DoorH2") { worldSprite.addImage(tex_doorH2); }
         
-        
-        worldTiles.add(worldSprite); // Add to Group()
+        if(item != "Blank"){
+            worldTiles.add(worldSprite); 
+        }
+       // Add to Group()
 
 
     }
