@@ -12,6 +12,7 @@ class Box {
         }
         boxes.collide(worldTiles);
         boxes.collide(floorSprite); //remove later when floor removed
+        boxes.collide(doors);
     }
 
     loopInDraw(){

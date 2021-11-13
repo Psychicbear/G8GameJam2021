@@ -1,4 +1,4 @@
-
+let enemyDead = [];
 class Enemy {
     constructor(colour, x, y, w, h, img, type = 'melee', hp = 1, attackDmg = 1, XP = 5, speed = 5){
         this.sprite = createSprite(x, y, w, h);
@@ -27,6 +27,8 @@ class Enemy {
         //defeat sound
         //when animation reach last frame:
         //if(this.animation.getFrame() == this.animation.getLastFrame() && this.animation.getAnimationLabel() == 'defeat'){
+        this.sprite.setCollider('rectangle', 0, 0, 0, 0);
+        enemyDead.push(this);
         this.sprite.remove(); //above might not work, since it has to be constantly checked until animation is done, and can't with this current structure
         this.dropXP();
         //add sprite to

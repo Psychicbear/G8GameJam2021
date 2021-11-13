@@ -13,6 +13,7 @@ class worldPlatform {
 
     setup(x, y, w, h) {
         this.worldSprite = createSprite(x, y, w, h);
+        this.worldSprite.debug = true;
         if(selectedTexture == ""){
             selectedTexture = "Grass"
             this.worldSprite.addImage(tex_springGrass);
