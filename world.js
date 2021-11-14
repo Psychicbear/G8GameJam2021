@@ -40,11 +40,36 @@ class worldPlatform {
 
                 this.setup(x, y, gridSize, gridSize);
 
-                worldTiles.add(this.worldSprite); // Add to Group()
-                this.worldSprite.setCollider("rectangle", 0, 0, 50, 50);
-                gridItem.push([selectedTexture, x, y])
                 
-                console.log(this.worldSprite);
+
+                // Custom Colliders for blocks
+                if(selectedTexture == "Grass Hill Right"){
+                    this.worldSprite.setCollider("circle", -20, 20, 40, );
+                    gridItem.push([selectedTexture, x, y])
+                    worldTiles.add(this.worldSprite); // Add to Group()
+                }
+                else if(selectedTexture == "Grass Hill Left"){
+                    this.worldSprite.setCollider("circle", 20, 20, 40, );
+                    gridItem.push([selectedTexture, x, y])
+                    worldTiles.add(this.worldSprite); // Add to Group()
+                }
+                else if(selectedTexture == "JumpPad"){
+                    this.worldSprite.setCollider("rectangle", 0, 25, gridSize, 4);
+                    gridItem.push([selectedTexture, x, y])
+                    worldTiles.add(this.worldSprite); // Add to Group()
+                }
+                else if(selectedTexture == "Spikes"){
+                    this.worldSprite.setCollider("rectangle", 0, 10, gridSize, 30);
+                    this.worldSprite.addToGroup(this.spikesGrp);
+                    gridItem.push([selectedTexture, x, y])
+                }
+                else{
+                    this.worldSprite.setCollider("rectangle", 0, 0, gridSize, gridSize);
+                    gridItem.push([selectedTexture, x, y])
+                    worldTiles.add(this.worldSprite); // Add to Group()
+                    
+                }
+
             }
         }
 
@@ -152,13 +177,13 @@ function LoadMapJSON(map) {
         if(item == "Grass") { worldSprite.addImage(tex_springGrass); }
         if(item == "Dirt") { worldSprite.addImage(tex_dirt); }
         if(item == "Player") { worldSprite.addImage(tex_player); }
-        if(item == "Grass Hill Left") { worldSprite.addImage(tex_springGrassHillLeft); }
-        if(item == "Grass Hill Right") { worldSprite.addImage(tex_springGrassHillRight); }
+        if(item == "Grass Hill Left") { worldSprite.addImage(tex_springGrassHillLeft); this.worldSprite.setCollider("circle", 20, 20, 40, );}
+        if(item == "Grass Hill Right") { worldSprite.addImage(tex_springGrassHillRight); this.worldSprite.setCollider("circle", -20, 20, 40, ); }
         if(item == "Grass Hill Left2") { worldSprite.addImage(tex_springGrassHillLeft2); }
         if(item == "Grass Hill Right2") { worldSprite.addImage(tex_springGrassHillRight2); }
-        if(item == "Spikes") { worldSprite.addImage(tex_spikes); }
+        if(item == "Spikes") { worldSprite.addImage(tex_spikes); this.worldSprite.setCollider("rectangle", 0, 10, gridSize, 30); this.worldSprite.addToGroup(spikesGrp);}
         if(item == "Blank") { worldSprite.addImage(tex_blank); worldSprite.addToGroup(airTiles);}
-        if(item == "JumpPad") { worldSprite.addImage(tex_jumpPad); }
+        if(item == "JumpPad") { worldSprite.addImage(tex_jumpPad); this.worldSprite.setCollider("rectangle", 0, 25, gridSize, 4);}
         if(item == "DoorH2") { worldSprite.addImage(tex_doorH2); }
         
         if(item != "Blank"){

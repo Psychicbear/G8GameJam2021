@@ -9,7 +9,7 @@ const MAIN_MENU = 0; const PLAY = 1; const DEBUG = 2;
 
 function preload(){
     map = loadJSON("things.json");
-    loadedMap = loadJSON("things (2).json"); // Temporary : this is where the loaded map is stored
+    loadedMap = loadJSON("things.json"); // Temporary : this is where the loaded map is stored
 
     tex_player =                loadImage("img/player.png");
     tex_dirt =                  loadImage("img/Dirt.png");
@@ -59,7 +59,7 @@ function setup(){
     airTiles = new Group();
     checkpoints = new Group();
 
-    player = new Player(320,320, 24, 24)
+    player = new Player(325,525, 24, 24)
     player.s.addAnimation('walk', walkAnimation)
     player.s.setCollider('circle', 0,0,6)
     player.s.scale = 4
@@ -171,7 +171,7 @@ function draw(){
             //editor - Janky button creation...
             fill(255,255,255,10)
             noStroke()
-            editorButtonLocation = {x: width * (-0.38), y: -200, spacing: 70}
+            editorButtonLocation = {x: width * (-0.345), y: -200, spacing: 70}
             let xLoc = editorButtonLocation.x + camera.position.x
             let yLoc = editorButtonLocation.y + camera.position.y
             editorButton1 = new Editor_Button(xLoc,  yLoc, 50, 50,                                   tex_springGrass, '',             ()=>{ selectedTexture = "Grass", console.log("Spring Grass");})
@@ -183,10 +183,10 @@ function draw(){
             editorButton7 = new Editor_Button(xLoc + editorButtonLocation.spacing * 6, yLoc, 50, 50, tex_spikes, '',                  ()=>{ selectedTexture = "Spikes", console.log("Spikes");})
             editorButton8 = new Editor_Button(xLoc + editorButtonLocation.spacing * 7, yLoc, 50, 50, tex_blank, '',                   ()=>{ selectedTexture = "Blank", console.log("Blank");})
             editorButton9 = new Editor_Button(xLoc + editorButtonLocation.spacing * 8, yLoc, 50, 50, tex_jumpPad, '',                 ()=>{ selectedTexture = "JumpPad", console.log("JumpPad");})
-            editorButton10 = new Editor_Button(xLoc + editorButtonLocation.spacing * 9, yLoc, 50, 100, tex_doorH2, '',                ()=>{ selectedTexture = "DoorH2", console.log("DoorH2");})
+            // editorButton10 = new Editor_Button(xLoc + editorButtonLocation.spacing * 9, yLoc, 50, 100, tex_doorH2, '',                ()=>{ selectedTexture = "DoorH2", console.log("DoorH2");})
             editorButtonNoClickMask = new Editor_Button(xLoc,  yLoc, 4000, 100);
             editorButton1.draw(); editorButton2.draw(); editorButton3.draw(); editorButton4.draw(); editorButton5.draw(); editorButton6.draw(); 
-            editorButton7.draw(); editorButton8.draw(); editorButton9.draw(); editorButton10.draw();
+            editorButton7.draw(); editorButton8.draw(); editorButton9.draw(); //editorButton10.draw();
             editorButtonNoClickMask.mouseIsOver(); // Prevents placing tiles while within the mask area. Mask must be the last button item.
 
             drawSprites();
