@@ -9,7 +9,7 @@ class Enemy {
         this.XPAmt = XP;
         this.speed = speed;
         this.anim = img;
-        this.s.debug = true
+        this.s.debug = false
         this.s.setCollider('circle', 0, -2, 20)
         this.s.direction = -2;
         
@@ -72,9 +72,9 @@ class Enemy {
         enemies.collide(worldTiles)
         enemies.collide(floorSprite)
         //enemies.collide(airTiles, changeDirection)
-        console.log(frameCount)
+        // console.log(frameCount)
         if(frameCount%100===0){
-            console.log("sadf")
+            // console.log("sadf")
             this.changeDirection()
         }
         //bullets collide with enemy _______________________________________________________
@@ -96,10 +96,10 @@ class Enemy {
         this.collisionCheck();
         this.move();
 
-        console.log("enemy x velocity: " + this.s.velocity.x)
+        // console.log("enemy x velocity: " + this.s.velocity.x)
     }
     changeDirection(){
-        console.log(this)
+        // console.log(this)
         if(this.s.direction == 2){
             this.s.direction = -2;
         } else {

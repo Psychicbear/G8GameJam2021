@@ -181,8 +181,8 @@ function LoadMapJSON(map) {
         if(item == "Grass") { worldSprite.addImage(tex_springGrass); worldTiles.add(worldSprite); }
         if(item == "Dirt") { worldSprite.addImage(tex_dirt); worldTiles.add(worldSprite); }
         if(item == "Player") { worldSprite.addImage(tex_player); }
-        if(item == "Grass Hill Left") { worldSprite.addImage(tex_springGrassHillLeft); worldTiles.add(worldSprite); }
-        if(item == "Grass Hill Right") { worldSprite.addImage(tex_springGrassHillRight); worldTiles.add(worldSprite); }
+        if(item == "Grass Hill Left") { worldSprite.addImage(tex_springGrassHillLeft); worldTiles.add(worldSprite); this.worldSprite.setCollider("circle", 20, 20, 40, );}
+        if(item == "Grass Hill Right") { worldSprite.addImage(tex_springGrassHillRight); worldTiles.add(worldSprite); this.worldSprite.setCollider("circle", -20, 20, 40, );}
         if(item == "Grass Hill Left2") { worldSprite.addImage(tex_springGrassHillLeft2); worldTiles.add(worldSprite); }
         if(item == "Grass Hill Right2") { worldSprite.addImage(tex_springGrassHillRight2); worldTiles.add(worldSprite); }
         if(item == "Spikes") { worldSprite.addImage(tex_spikes); new Spikes(xpos, ypos, 320,320)}

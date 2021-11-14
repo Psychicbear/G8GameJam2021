@@ -76,7 +76,7 @@ function setup(){
     player.s.scale = 4
     player.s.debug = false
     playerHearts = new Hearts();
-    floorSprite = createSprite(width / 2 , height - 30, 1280, 40)
+    floorSprite = createSprite(325 , 575, 100, 40)
     floorSprite.shapeColor = color(166,124,82);
     playButton = new UI_Button(width/2, height*0.4, 100, 100, {'r': 255, 'g': 100, 'b': 0}, 'Play', ()=>{console.log('Button is pressed!!!'); gameState = 1})
     debugButton = new UI_Button(width/2, height*0.6, 100, 100, {'r': 255, 'g': 100, 'b': 0}, 'Map Editor', ()=>{console.log('Button is pressed!!!'); gameState = 2})
@@ -134,7 +134,7 @@ function draw(){
           
             player.loopInDraw();
 
-            player.s.debug = true;
+            player.s.debug = false;
  
             playerHearts.loopInDraw(player.curHP);
             camera.on()
@@ -173,45 +173,45 @@ function draw(){
 
             
             
+
+            // Default Camera Zoom (Play Mode)
+            camera.zoom = 1.1;
+
+            // fill(255,255,255);
+            // textSize(12);
+            // textAlign(CENTER);
+            // text("Sprites in World: " + allSprites.length,  + camera.position.x,camera.position.y - 260)
+
+            // /* ============================================================================== */
+            // // Editor Buttons
+            // //
+            // // I'm just, so, so sorry - Bridget
+            // /* ============================================================================== */
+            // //editor - Janky button creation...
+            // fill(255,255,255,10)
+            // noStroke()
+            // editorButtonLocation = {x: width * (-0.345), y: -200, spacing: 70}
+            // let xLoc = editorButtonLocation.x + camera.position.x
+            // let yLoc = editorButtonLocation.y + camera.position.y
+            // editorButton1 = new Editor_Button(xLoc,  yLoc, 50, 50,                                   tex_springGrass, '',             ()=>{ selectedTexture = "Grass", console.log("Spring Grass");})
+            // editorButton2 = new Editor_Button(xLoc + editorButtonLocation.spacing,     yLoc, 50, 50, tex_dirt, '',                    ()=>{ selectedTexture = "Dirt", console.log("Dirt");})
+            // editorButton3 = new Editor_Button(xLoc + editorButtonLocation.spacing * 2, yLoc, 50, 50, tex_springGrassHillLeft, '',     ()=>{ selectedTexture = "Grass Hill Left", console.log("Spring Grass Hill Left");})
+            // editorButton4 = new Editor_Button(xLoc + editorButtonLocation.spacing * 3, yLoc, 50, 50, tex_springGrassHillRight, '',    ()=>{ selectedTexture = "Grass Hill Right", console.log("Spring Grass Hill Right");})
+            // editorButton5 = new Editor_Button(xLoc + editorButtonLocation.spacing * 4, yLoc, 50, 50, tex_springGrassHillLeft2, '',    ()=>{ selectedTexture = "Grass Hill Left2", console.log("Spring Grass Hill Left2");})
+            // editorButton6 = new Editor_Button(xLoc + editorButtonLocation.spacing * 5, yLoc, 50, 50, tex_springGrassHillRight2, '',   ()=>{ selectedTexture = "Grass Hill Right2", console.log("Spring Grass Hill Right2");})
+            // editorButton7 = new Editor_Button(xLoc + editorButtonLocation.spacing * 6, yLoc, 50, 50, tex_spikes, '',                  ()=>{ selectedTexture = "Spikes", console.log("Spikes");})
+            // editorButton8 = new Editor_Button(xLoc + editorButtonLocation.spacing * 7, yLoc, 50, 50, tex_blank, '',                   ()=>{ selectedTexture = "Blank", console.log("Blank");})
+            // editorButton9 = new Editor_Button(xLoc + editorButtonLocation.spacing * 8, yLoc, 50, 50, tex_jumpPad, '',                 ()=>{ selectedTexture = "JumpPad", console.log("JumpPad");})
+            // // editorButton10 = new Editor_Button(xLoc + editorButtonLocation.spacing * 9, yLoc, 50, 100, tex_doorH2, '',                ()=>{ selectedTexture = "DoorH2", console.log("DoorH2");})
+            // editorButtonNoClickMask = new Editor_Button(xLoc,  yLoc, 4000, 100);
+            // editorButton1.draw(); editorButton2.draw(); editorButton3.draw(); editorButton4.draw(); editorButton5.draw(); editorButton6.draw(); 
+            // editorButton7.draw(); editorButton8.draw(); editorButton9.draw(); //editorButton10.draw();
+            // editorButtonNoClickMask.mouseIsOver(); // Prevents placing tiles while within the mask area. Mask must be the last button item.
+
+            drawSprites();
             camera.off()
             playerHearts.loopInDraw(player.curHP);
             camera.on()
-            // Default Camera Zoom (Play Mode)
-            camera.zoom = 1;
-
-            fill(255,255,255);
-            textSize(12);
-            textAlign(CENTER);
-            text("Sprites in World: " + allSprites.length,  + camera.position.x,camera.position.y - 260)
-
-            /* ============================================================================== */
-            // Editor Buttons
-            //
-            // I'm just, so, so sorry - Bridget
-            /* ============================================================================== */
-            //editor - Janky button creation...
-            fill(255,255,255,10)
-            noStroke()
-            editorButtonLocation = {x: width * (-0.345), y: -200, spacing: 70}
-            let xLoc = editorButtonLocation.x + camera.position.x
-            let yLoc = editorButtonLocation.y + camera.position.y
-            editorButton1 = new Editor_Button(xLoc,  yLoc, 50, 50,                                   tex_springGrass, '',             ()=>{ selectedTexture = "Grass", console.log("Spring Grass");})
-            editorButton2 = new Editor_Button(xLoc + editorButtonLocation.spacing,     yLoc, 50, 50, tex_dirt, '',                    ()=>{ selectedTexture = "Dirt", console.log("Dirt");})
-            editorButton3 = new Editor_Button(xLoc + editorButtonLocation.spacing * 2, yLoc, 50, 50, tex_springGrassHillLeft, '',     ()=>{ selectedTexture = "Grass Hill Left", console.log("Spring Grass Hill Left");})
-            editorButton4 = new Editor_Button(xLoc + editorButtonLocation.spacing * 3, yLoc, 50, 50, tex_springGrassHillRight, '',    ()=>{ selectedTexture = "Grass Hill Right", console.log("Spring Grass Hill Right");})
-            editorButton5 = new Editor_Button(xLoc + editorButtonLocation.spacing * 4, yLoc, 50, 50, tex_springGrassHillLeft2, '',    ()=>{ selectedTexture = "Grass Hill Left2", console.log("Spring Grass Hill Left2");})
-            editorButton6 = new Editor_Button(xLoc + editorButtonLocation.spacing * 5, yLoc, 50, 50, tex_springGrassHillRight2, '',   ()=>{ selectedTexture = "Grass Hill Right2", console.log("Spring Grass Hill Right2");})
-            editorButton7 = new Editor_Button(xLoc + editorButtonLocation.spacing * 6, yLoc, 50, 50, tex_spikes, '',                  ()=>{ selectedTexture = "Spikes", console.log("Spikes");})
-            editorButton8 = new Editor_Button(xLoc + editorButtonLocation.spacing * 7, yLoc, 50, 50, tex_blank, '',                   ()=>{ selectedTexture = "Blank", console.log("Blank");})
-            editorButton9 = new Editor_Button(xLoc + editorButtonLocation.spacing * 8, yLoc, 50, 50, tex_jumpPad, '',                 ()=>{ selectedTexture = "JumpPad", console.log("JumpPad");})
-            // editorButton10 = new Editor_Button(xLoc + editorButtonLocation.spacing * 9, yLoc, 50, 100, tex_doorH2, '',                ()=>{ selectedTexture = "DoorH2", console.log("DoorH2");})
-            editorButtonNoClickMask = new Editor_Button(xLoc,  yLoc, 4000, 100);
-            editorButton1.draw(); editorButton2.draw(); editorButton3.draw(); editorButton4.draw(); editorButton5.draw(); editorButton6.draw(); 
-            editorButton7.draw(); editorButton8.draw(); editorButton9.draw(); //editorButton10.draw();
-            editorButtonNoClickMask.mouseIsOver(); // Prevents placing tiles while within the mask area. Mask must be the last button item.
-
-            drawSprites();
-           
             break;
     }
 } 
