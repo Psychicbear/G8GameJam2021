@@ -3,6 +3,7 @@ class Box {
         this.s = createSprite(x, y, tex_springGrass.width, tex_springGrass.height);
         this.s.debug = true;
         this.s.addToGroup(boxes);
+        boxes2.push(this);
     }
     collisionCheck(){
         if(player.s.position.y < this.s.position.y - this.s.height/2){
@@ -25,15 +26,19 @@ class Door {
     constructor(x, y, bx, by){
         this.s = createSprite(x, y, 50, 100);
         this.s.addToGroup(doors);
+        
         this.s.closePos = y;
         this.s.openPos = this.s.position.y - this.s.height
 
         //button
         this.b = createSprite(bx, by, 40, 5);
         this.b.immovable = true;
+        this.b.addImage(tex_jumpPad);
         this.b.addToGroup(buttonGrp);
+        buttonGrp2.push(this)
         this.s.amt = 0;
         this.s.amt2 = 0;
+        doors2.push(this);
     }
 
     loopInDraw(){

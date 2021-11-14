@@ -1,6 +1,16 @@
 
 let loadedMap = [];
 let map = [];
+let enemies2 = []
+let expPoints2 = []
+let worldTiles2 = []
+let bulletsGrp2 = []
+let spikesGrp2 = []
+let boxes2 = []
+let buttonGrp2 = []
+let doors2 = []
+let airTiles2 = []
+let checkpoints2 = []
 
 //this is the one you'll write your code in make sure to change the script tag in index.html to use main.js instead of test.js
 let enemies, expPoints, bulletsGrp, spikesGrp, boxes, buttonGrp, doors, airTiles, checkpoints;
@@ -9,7 +19,7 @@ const MAIN_MENU = 0; const PLAY = 1; const DEBUG = 2;
 
 function preload(){
     map = loadJSON("things.json");
-    loadedMap = loadJSON("things (2).json"); // Temporary : this is where the loaded map is stored
+    loadedMap = loadJSON("things.json"); // Temporary : this is where the loaded map is stored
 
     tex_player =                loadImage("img/player.png");
     tex_dirt =                  loadImage("img/Dirt.png");
@@ -59,6 +69,7 @@ function setup(){
     airTiles = new Group();
     checkpoints = new Group();
 
+
     player = new Player(320,320, 24, 24)
     player.s.addAnimation('walk', walkAnimation)
     player.s.setCollider('circle', 0,0,6)
@@ -93,7 +104,7 @@ function setup(){
     // door = new Door(400, 500, 500, 548);
     // door2 = new Door(300, 500, 200, 548);
     player.createCheckpoint(50, 50);
-    enemy = new Enemy(250, 100, 10, 10, enemyWalk);
+    enemy = new Enemy(1225, -75, 10, 10, enemyWalk);
 
     //resize enemyWalk animation
     resizeEnemy(70);
@@ -149,8 +160,18 @@ function draw(){
             //door.loopInDraw();
             //door2.loopInDraw();
 
+            for(let i = 0; i < spikesGrp2.length; i++){
+                spikesGrp2[i].collisionCheck();
+            }
+            for(let i = 0; i < boxes2.length; i++){
+                boxes2[i].loopInDraw();
+            }
+            for(let i = 0; i < doors2.length; i++){
+                doors2[i].loopInDraw();
+            }
+          
 
-            player.s.debug = true;
+            
             
             camera.off()
             playerHearts.loopInDraw(player.curHP);

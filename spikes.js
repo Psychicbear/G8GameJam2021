@@ -7,6 +7,7 @@ class Spikes {
         this.s.setCollider('rectangle', 0, 10, tex_spikes.width, tex_spikes.height - 20);
         this.s.dmg = 1;
         this.s.addToGroup(spikesGrp);
+        spikesGrp2.push(this);
         this.s.respawnPoint = {
             x: resX,
             y: resY

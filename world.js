@@ -35,7 +35,7 @@ class worldPlatform {
         noStroke()
         rect(x, y, gridSize, gridSize);
 
-        if (mouseDown(LEFT) && mouseIsOverButton == false){
+        if (mouseWentDown(LEFT) && mouseIsOverButton == false){
             if(editorAddWorldObject(selectedTexture, x,y)){ // Checks with the method that the tile is free
 
                 this.setup(x, y, gridSize, gridSize);
@@ -48,7 +48,7 @@ class worldPlatform {
             }
         }
 
-        if(mouseDown(RIGHT)){
+        if(mouseWentDown(RIGHT)){
 
             if(!editorAddWorldObject(selectedTexture, x,y)){ // Checks with the method that the tile is taken
                 console.log("remove")              
@@ -147,22 +147,26 @@ function LoadMapJSON(map) {
         xpos = loadedMap.location[i][1]
         ypos = loadedMap.location[i][2]
 
-        worldSprite = createSprite(xpos, ypos, 48, 48);
+        if(item != "DoorH2"){
+            worldSprite = createSprite(xpos, ypos, 48, 48);
+        }
+        
+        
 
-        if(item == "Grass") { worldSprite.addImage(tex_springGrass); }
-        if(item == "Dirt") { worldSprite.addImage(tex_dirt); }
+        if(item == "Grass") { worldSprite.addImage(tex_springGrass); worldTiles.add(worldSprite); }
+        if(item == "Dirt") { worldSprite.addImage(tex_dirt); worldTiles.add(worldSprite); }
         if(item == "Player") { worldSprite.addImage(tex_player); }
-        if(item == "Grass Hill Left") { worldSprite.addImage(tex_springGrassHillLeft); }
-        if(item == "Grass Hill Right") { worldSprite.addImage(tex_springGrassHillRight); }
-        if(item == "Grass Hill Left2") { worldSprite.addImage(tex_springGrassHillLeft2); }
-        if(item == "Grass Hill Right2") { worldSprite.addImage(tex_springGrassHillRight2); }
-        if(item == "Spikes") { worldSprite.addImage(tex_spikes); }
+        if(item == "Grass Hill Left") { worldSprite.addImage(tex_springGrassHillLeft); worldTiles.add(worldSprite); }
+        if(item == "Grass Hill Right") { worldSprite.addImage(tex_springGrassHillRight); worldTiles.add(worldSprite); }
+        if(item == "Grass Hill Left2") { worldSprite.addImage(tex_springGrassHillLeft2); worldTiles.add(worldSprite); }
+        if(item == "Grass Hill Right2") { worldSprite.addImage(tex_springGrassHillRight2); worldTiles.add(worldSprite); }
+        if(item == "Spikes") { worldSprite.addImage(tex_spikes); new Spikes(xpos, ypos, 320,320)}
         if(item == "Blank") { worldSprite.addImage(tex_blank); worldSprite.addToGroup(airTiles);}
         if(item == "JumpPad") { worldSprite.addImage(tex_jumpPad); }
-        if(item == "DoorH2") { worldSprite.addImage(tex_doorH2); }
+        if(item == "DoorH2") { door = new Door(xpos, ypos - 25, loadedMap.location[i + 1][1], loadedMap.location[i + 1][2]); }
         
         if(item != "Blank"){
-            worldTiles.add(worldSprite); 
+            
         }
        // Add to Group()
 

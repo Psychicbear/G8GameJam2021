@@ -9,12 +9,13 @@ class Enemy {
         this.XPAmt = XP;
         this.speed = speed;
         this.anim = img;
-        //this.s.debug = true
-        this.s.setCollider('rectangle', 0, -2, 55, 55)
-        this.s.direction = 10;
+        this.s.debug = true
+        this.s.setCollider('circle', 0, -2, 20)
+        this.s.direction = -2;
         
         this.s.addAnimation('walk', this.anim);
         enemies.add(this.s);
+        enemies2.push(this);
        
         
     }
@@ -70,7 +71,12 @@ class Enemy {
         enemies.collide(bulletsGrp, () => this.defeated())
         enemies.collide(worldTiles)
         enemies.collide(floorSprite)
-        enemies.collide(airTiles, changeDirection)
+        //enemies.collide(airTiles, changeDirection)
+        console.log(frameCount)
+        if(frameCount%100===0){
+            console.log("sadf")
+            this.changeDirection()
+        }
         //bullets collide with enemy _______________________________________________________
   
 
@@ -85,24 +91,25 @@ class Enemy {
         } else if(this.s.velocity.x < -0.0001){ //if x velocity is negative (left) make animation face right
             this.s.mirrorX(-1);
         } 
-        this.s.velocity.y = 10; //gravity
+        //this.s.velocity.y = 10; //gravity
        
         this.collisionCheck();
         this.move();
 
         console.log("enemy x velocity: " + this.s.velocity.x)
     }
-
-}
-function changeDirection(){
-    console.log("touch")
-    if(this.direction == 10){
-        this.direction = -10;
-    } else {
-        this.direction = 10;
+    changeDirection(){
+        console.log(this)
+        if(this.s.direction == 2){
+            this.s.direction = -2;
+        } else {
+            this.s.direction = 2;
+        }
+    
     }
 
 }
+
 class XP {
     constructor(x, y,img){ //currently have to input img. change to a function that does it automatically?
         this.sprite = createSprite(x + random(-20, 20), y + random(-20, 20)); //x and y are the locations of the enemy
