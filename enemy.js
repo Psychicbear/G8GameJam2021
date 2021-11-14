@@ -11,7 +11,7 @@ class Enemy {
         this.anim = img;
         //this.s.debug = true
         this.s.setCollider('rectangle', 0, -2, 55, 55)
-        this.s.direction = 1;
+        this.s.direction = 10;
         
         this.s.addAnimation('walk', this.anim);
         enemies.add(this.s);
@@ -56,7 +56,7 @@ class Enemy {
     }
 
     move(){
-       this.s.velocity.x = 2 
+       this.s.velocity.x = this.s.direction
     }
 
     collisionCheck(){
@@ -70,7 +70,7 @@ class Enemy {
         enemies.collide(bulletsGrp, () => this.defeated())
         enemies.collide(worldTiles)
         enemies.collide(floorSprite)
-
+        enemies.collide(airTiles, changeDirection)
         //bullets collide with enemy _______________________________________________________
   
 
@@ -86,19 +86,20 @@ class Enemy {
             this.s.mirrorX(-1);
         } 
         this.s.velocity.y = 10; //gravity
-        this.move();
-        enemies.collide(airTiles, () => this.s.velocity.x *= -1)
+       
         this.collisionCheck();
+        this.move();
+
         console.log("enemy x velocity: " + this.s.velocity.x)
     }
 
 }
 function changeDirection(){
     console.log("touch")
-    if(this.direction == 1){
-        this.direction = -1;
+    if(this.direction == 10){
+        this.direction = -10;
     } else {
-        this.direction = 1;
+        this.direction = 10;
     }
 
 }

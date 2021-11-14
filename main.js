@@ -9,7 +9,7 @@ const MAIN_MENU = 0; const PLAY = 1; const DEBUG = 2;
 
 function preload(){
     map = loadJSON("things.json");
-    loadedMap = loadJSON("things.json"); // Temporary : this is where the loaded map is stored
+    loadedMap = loadJSON("things (2).json"); // Temporary : this is where the loaded map is stored
 
     tex_player =                loadImage("img/player.png");
     tex_dirt =                  loadImage("img/Dirt.png");
