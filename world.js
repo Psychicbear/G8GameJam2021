@@ -40,11 +40,36 @@ class worldPlatform {
 
                 this.setup(x, y, gridSize, gridSize);
 
-                worldTiles.add(this.worldSprite); // Add to Group()
-                this.worldSprite.setCollider("rectangle", 0, 0, 50, 50);
-                gridItem.push([selectedTexture, x, y])
                 
-                console.log(this.worldSprite);
+
+                // Custom Colliders for blocks
+                if(selectedTexture == "Grass Hill Right"){
+                    this.worldSprite.setCollider("circle", -20, 20, 40, );
+                    gridItem.push([selectedTexture, x, y])
+                    worldTiles.add(this.worldSprite); // Add to Group()
+                }
+                else if(selectedTexture == "Grass Hill Left"){
+                    this.worldSprite.setCollider("circle", 20, 20, 40, );
+                    gridItem.push([selectedTexture, x, y])
+                    worldTiles.add(this.worldSprite); // Add to Group()
+                }
+                else if(selectedTexture == "JumpPad"){
+                    this.worldSprite.setCollider("rectangle", 0, 25, gridSize, 4);
+                    gridItem.push([selectedTexture, x, y])
+                    worldTiles.add(this.worldSprite); // Add to Group()
+                }
+                else if(selectedTexture == "Spikes"){
+                    this.worldSprite.setCollider("rectangle", 0, 10, gridSize, 30);
+                    this.worldSprite.addToGroup(this.spikesGrp);
+                    gridItem.push([selectedTexture, x, y])
+                }
+                else{
+                    this.worldSprite.setCollider("rectangle", 0, 0, gridSize, gridSize);
+                    gridItem.push([selectedTexture, x, y])
+                    worldTiles.add(this.worldSprite); // Add to Group()
+                    
+                }
+
             }
         }
 
@@ -165,9 +190,7 @@ function LoadMapJSON(map) {
         if(item == "JumpPad") { worldSprite.addImage(tex_jumpPad); }
         if(item == "DoorH2") { door = new Door(xpos, ypos - 25, loadedMap.location[i + 1][1], loadedMap.location[i + 1][2]); }
         
-        if(item != "Blank"){
-            
-        }
+     
        // Add to Group()
 
 
